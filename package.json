@@ -16,6 +16,8 @@
     "jwt-decode": "^3.1.2",
     "metalsmith-plantuml": "0.0.4",
     "node-fetch": "^2.6.7",
-    "npm": "^8.19.1"
+    "npm": "^8.19.1",
+    "plantuml": "0.0.1",
+    "plantuml-encoder": "^1.4.0"
   }
 }
