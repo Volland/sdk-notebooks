@@ -1,0 +1,21 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@affinidi/wallet-node-sdk": "^6.4.4",
+    "did-uri": "^0.6.0",
+    "install": "^0.13.0",
+    "jwt-decode": "^3.1.2",
+    "metalsmith-plantuml": "0.0.4",
+    "node-fetch": "^2.6.7",
+    "npm": "^8.19.1"
+  }
+}
