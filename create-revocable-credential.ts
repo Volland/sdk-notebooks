@@ -5,7 +5,7 @@ import platformCryptographyTools from '@affinidi/wallet-node-sdk/dist/PlatformCr
 // @ts-ignore
 const walletFactory = createWallet('AffinityCore')
 const main = async () => {
-const accessApiKey = '3794c3f8d9fb9a92770d79dbd5e490bc22bb0e58e9ff42475b379e35a575d13d'
+const accessApiKey = '<your key>'
 const options = {
     env: 'prod' as 'dev' | 'staging' | 'prod',
     accessApiKey

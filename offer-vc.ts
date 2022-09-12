@@ -1,4 +1,6 @@
-const { createWallet } = require('@affinidi/wallet-node-sdk')
+import { createWallet } from '@affinidi/wallet-node-sdk'
+
+const main = async () => {
 const walletFactory = createWallet('AffinityCore')
 const accessApiKey = '<your key>'
 const options = {
@@ -63,4 +65,6 @@ const signedCredentials = await issuerWallet.signCredentials(
       credentialOfferResponseToken,
       [unsignedVC],
     )
-  
+}
+
+main().catch(console.error)
