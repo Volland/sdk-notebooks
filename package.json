@@ -5,14 +5,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["sdk", "affinidi", "ssi","dataunlocking"],
+  "keywords": [
+    "sdk",
+    "affinidi",
+    "ssi",
+    "dataunlocking"
+  ],
   "author": "Volodymyr Pavlyshyn ",
   "license": "ISC",
   "dependencies": {
     "@affinidi/wallet-node-sdk": "^6.4.4",
     "did-uri": "^0.6.0",
     "jwt-decode": "^3.1.2",
-    "metalsmith-plantuml": "0.0.4",
+    "metalsmith-plantuml": "0.0.5",
     "node-fetch": "^2.6.7",
     "plantuml-encoder": "^1.4.0"
   }
