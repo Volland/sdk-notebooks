@@ -14,7 +14,7 @@
   "author": "Volodymyr Pavlyshyn ",
   "license": "ISC",
   "dependencies": {
-    "@affinidi/wallet-node-sdk": "^6.4.4",
+    "@affinidi/wallet-node-sdk": "^7.3.0",
     "did-uri": "^0.6.0",
     "jwt-decode": "^3.1.2",
     "metalsmith-plantuml": "0.0.5",
