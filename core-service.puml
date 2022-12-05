@@ -1,0 +1,37 @@
+title Cloud Wallet
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(consumer, "Consumer")
+
+System(analyticsSystem, "Analytics", "Analytics")
+
+System(registrySystem, "Registry", "Abstraction for all ledger communication")
+
+System_Ext(userManagement, "User Management","(Cognito)")
+
+System_Boundary(walletSystemBoundary, "Wallet Backend") {        
+    Container(keyStorage, "Key Storage", "affinity wallet backend (encryptedSeed storage)")
+    Container(vcStorage, "VC Vault", "VC storage (bloom vault)")
+    Container(cloudWallet, "Cloud Wallet", "Cloud Wallet API")
+
+
+    ContainerDb(keyStorageDB, "Key Storage DB", "PostgresDB")
+    ContainerDb(vcStorageDB, "VC Storage DB", "PostgresDB")
+}
+
+Rel(cloudWallet, userManagement, "user access")
+
+Rel(consumer, cloudWallet, "Uses")
+
+Rel(keyStorage, keyStorageDB, "Store/Pull key")
+Rel(vcStorage, vcStorageDB, "Store/Pull VC")
+
+Rel(cloudWallet, analyticsSystem, "Store Event")
+
+Rel(cloudWallet, registrySystem, "Anchor/Resolve Did")
+
+Rel(cloudWallet, keyStorage, "Store/Pull key")
+Rel(cloudWallet, vcStorage, "Store/Pull VC")
+
+

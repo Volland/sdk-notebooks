@@ -1,0 +1,86 @@
+title Cloud Wallet
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(consumer, "Consumer")
+
+Person(consumer2, "App User")
+
+System_Boundary(walletSystemBoundary, "Cloud Walet") { 
+
+    ContainerDb(vcShareStorageDB, "VC Share Storage DB", "PostgresDB")
+    Container(cloudWallet, "Cloud Wallet", "service")
+}
+
+
+System_Boundary(coreServices, "Core Services") { 
+    Container(walletBackend, "Wallet Backend", "affinity wallet backend (encryptedSeed storage)")
+    Container(vcStorage, "Affinidi Vault", "encrypted VC storage")
+    Container(registry, "Affinity Registry", "DIDs Operations, Ledger gateway")
+    Container(issuer, "Affinity Issuer", "Offers , VC issuese")
+    Container(verifier, "Affinity Verifier", "Share , VC Verification")
+    Container(revocation, "Affinity Revocation API", "Revocable VCs")
+    Container(messages, "Affinity Messages", "DID Messages Media")
+}
+System_Boundary(SDK, "SDK") { 
+    Container(nodeSDK, "node sdk", "node")
+    Container(browserSDK, "browser sdk", "browser")
+    Container(rnSDK, "RN sdk", "mobile")
+    System_Boundary(SDKcore, "SDK core ") { 
+      Container(coreSDK, "core module", "majority of logic")
+      Container(common, "common module", "sign, verify, etc")
+      Container(usermanagment, "user managment", "user managment")
+      Container(didauth, "DID Auth", "DID Auth")
+    }
+}
+    System_Ext(Ethereum, "Ethereum", "blockchaine")
+    System_Ext(IPFS, "IPFS", "IPFS")
+    System_Ext(Polygon, "Polygon", "blockchaine")
+    System_Ext(Cognito, "Cognito", "AWS")
+    System_Ext(DDB, "Dynamo", "AWS")
+
+    Rel(consumer, cloudWallet, "Uses")
+    Rel_D(consumer2, rnSDK, "Uses")
+    Rel_L(nodeSDK, SDKcore , "")
+    Rel_L(browserSDK, SDKcore , "")
+    Rel_R(rnSDK, SDKcore , "")
+    Rel_L(nodeSDK, SDKcore , "")
+    Rel_D(coreSDK, registry, "DID resolution, creation")
+    Rel_D(coreSDK, vcStorage, "Store VC")
+    Rel_D(coreSDK, revocation, "Revocation Lists, Revoke VC")
+    Rel_D(coreSDK, walletBackend, "Admin Cognito , DDB")
+    Rel_D(coreSDK, issuer, "Request/Responce Sharing")
+    Rel_D(coreSDK, verifier, "Request/Responce Offer")
+    Rel_L(coreSDK, usermanagment, "users")
+    Rel_R(coreSDK, common, "")
+
+    Rel_U(issuer,common, "")
+    Rel_U(verifier,common, "")
+    
+    Rel_D(cloudWallet, nodeSDK, "Uses")
+    Rel_D(usermanagment, Cognito, "users")
+    Rel_D(SDK,coreServices,"" )
+    
+    Rel(registry, Ethereum, "")
+    Rel(registry, Polygon, "")
+    Rel(registry, IPFS, "") 
+
+    Rel(didauth,registry , "auth")
+    Rel(issuer,registry , "resolve did")
+    Rel(verifier,registry , "resolve did")
+    Rel(revocation,registry , "auth")
+    Rel(messages,registry , "resolve did")
+
+    
+    Rel(walletBackend, Cognito, "Admin Cognito")
+    Rel(walletBackend, DDB, "Templates, Trucaller")
+
+    Rel(issuer,common , "sign")
+    Rel(verifier, common, "verify")
+
+
+    Rel(vcStorage,didauth , "auth")
+    Rel(messages, didauth, "auth")
+    Rel(revocation, didauth, "auth")
+
+   
