@@ -41,8 +41,8 @@ System_Boundary(SDK, "SDK") {
 
     Rel(consumer, cloudWallet, "Uses")
     Rel_D(consumer2, rnSDK, "Uses")
-    Rel_L(nodeSDK, SDKcore , "")
-    Rel_L(browserSDK, SDKcore , "")
+    Rel_L(nodeSDK, SDKcore , "use")
+    Rel_L(browserSDK, SDKcore , "use")
     Rel_R(rnSDK, SDKcore , "")
     Rel_L(nodeSDK, SDKcore , "")
     Rel_D(coreSDK, registry, "DID resolution, creation")
