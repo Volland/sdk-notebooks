@@ -151,9 +151,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Wallet Internals</a></li>
-
-
+<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Create Affinidi Wallet Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-revocable-vc.html">All about VC &amp; Revocable VCs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="request-for-offer.html">Howto offer VC to Holder</a></li>
 
 
@@ -401,7 +400,12 @@ It is <strong>user centric</strong></p>
 <p>We need a <strong>protocol</strong> that could proof the identity and <strong>autorship</strong> for every role.
 As we know our identities is our keypairs so we should sign some entities to proof our identity
 Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">encodedTriangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="sb">`</span>
 <span class="sb">@startuml</span>
@@ -426,13 +430,19 @@ Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/NP5HIyCm58NVyojY4EbWMr5y6Wo6HL2OK0RsjMJDRHjCavYRJ4NyxwPPAMCluN9pldDFRiWEFNS-38hSIDse883stblSvBdZN-jE-ZuS0u9hZFQW_RenGsuLroEpGY-KFER5uweSM-zl-tpWwC75Lbr4WaiDRcr7VrA2GwFhvs-VISG0RadPQohOWZoPe0LtFzdnViagSBAL3VVIQBQWlnEQzKQ9XBsaWYtfBLedFMoPJOg7w3HfJyaZgQkfZ9T_X1n0rVivmMoP6hGgeYaxm6S0zBGrZfgsJMJ4vlbp_4PnEPm9j4OZN2FruIB8F8lZHn9M1LwFmvuxgJkQbGumxZljW1OzLmfq1ukh91UlF3y0PQT1qAeSZTCvhOXkARi3VG9bBAmQPH14D2Cxq6Byddy0"/></div></div>
 </div>
 </section>
 <section id="flow">
 <h1>Flow<a class="headerlink" href="#flow" title="Permalink to this heading">#</a></h1>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">encodedFlow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="sb">`</span>
 <span class="sb">title: Affinidi: Share VC Flow</span>
@@ -487,6 +497,7 @@ Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/dLHDRzim3BthLn0vEK1MTDrsyQ50b-oZAp1aJP4UXXuKcR6vAfOdoSdoxoTPTYotQJeCy46MIBv7yf7CafMOmjLwJILbbCAYu1fXEONFKkrOnRKbGHKlBOoMg6bDg661Uai2Hy0DRDjBneLL6Y8h8GcTsmHCzjYOXelMSBIOtS1N9JFKpMFH75d6BLznWp2wvrAY1UECUHwmTitLaDGjvcIitZS6klrXZBNeRouF35FuM9FCfXepzq9StkBl6es5H0okIEF6_Panwpnzb10lXOlpS_ZPEpJbQWCzC5OgYw2sX-md4Vfn9p2KbrJcmCli1PCxzOWbv5YYvXQpABLGj1ICsg2hpXuobEJHanEHnYTPTX5yDA5gcS4AVMb_tBhVpA4K90geb75CG9MmmzN4ly-_0vNkiwXBBk6gga2gd0JGff9DGRabLKu0hJX9u4l8qvTa-ZG9KwdIOAY7Lqd3m1Pugd0dm5ZGgcYOWLeteGxwzOtXjdRJy0yWRy_0qLDo6mMONSyWoPs6gtebITpWVimkpiBx_XXEKXkVTcIEJXIUFmkTzZtlD9wwKmCueopfWhdpc7KMiK8QsRhNcHArRyP3536CLUeKPlkAczCI2ZxF47eVuwQXX-YCekOkvx0ZMqHLDKu-Xh8usMxg3WAt2eI3TjqNZv0iv-Duvhg-JhfjSgZnbajogoNkeKdZfeLDz4hBMgE1CBxTtntfspldqq7QWjlEbQm13ejwzGk5zGCJyKbKvNN8vPYzxubT6rC7OazvVJZmQcq6l92BOMsVasIV_g2ecsPqSniDRg-zVjySrLv8xPdo1WjpeBnNueLi_YjUUt9RJ7bzjIrmHNt9PXhRiBy0"/></div></div>
 </div>

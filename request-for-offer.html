@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Howto Share VC with Verifier" href="share-vp.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="create-revocable-vc.html" />
+    <link rel="prev" title="All about VC &amp; Revocable VCs" href="create-revocable-vc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -151,9 +151,8 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Wallet Internals</a></li>
-
-
+<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Create Affinidi Wallet Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-revocable-vc.html">All about VC &amp; Revocable VCs</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Howto offer VC to Holder</a></li>
 
 
@@ -408,7 +407,12 @@ It is <strong>user centric</strong></p>
 <p>We need a <strong>protocol</strong> that could proof the identity and <strong>autorship</strong> for every role.
 As we know our identities is our keypairs so we should sign some entities to proof our identity
 Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;plantuml-encoder&#39;</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">tslab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;tslab&quot;</span><span class="p">);</span>
@@ -439,13 +443,19 @@ Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/ZP91QiCm44NNcbCCMYSd20ufWT0JT1EoKAsnBL0aLoDdKthtUB1LH0XjbgF_d_uV8JXmDYbFLm_MzScC0vxm6n2x678mLshqE_aRPTUQpLjonc_O1Duo9TTf01MY9Jo_vBw08jk_xYwNys16mWPRbrfFbnse8NfB2S_UV7hoZLvcZSLfupGBgn-K0kMOfvfOPgbqapHNQ-L4r4hVxd794IFvEKOd-fg8y_nOIRAJ2xr0QxqPAF2_oDhlDmEV4x7hfDUkpgXMAm2FCJ0z47z4V1p5yGC72bQ-mXq0"/></div></div>
 </div>
 <p>With request/responce for offer holder and issuer could identify each other</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">ShareOfferDiagram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">plantuml</span><span class="p">(</span><span class="sb">`</span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">ShareOfferDiagram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="sb">`</span>
 <span class="sb">@startuml</span>
 <span class="sb">title Affinidi: Affinidi: Offer VC Flow</span>
 <span class="sb">actor &quot;SDK (Holder)&quot; as holder</span>
@@ -481,31 +491,14 @@ Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens
 
 <span class="sb">@enduml</span>
 <span class="sb">`</span><span class="p">);</span>
-<span class="nx">tslab</span><span class="p">.</span><span class="nx">display</span><span class="p">.</span><span class="nx">svg</span><span class="p">(</span><span class="nx">ShareOfferDiagram</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ShareOfferDiagramUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;http://www.plantuml.com/plantuml/svg/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">ShareOfferDiagram</span>
+<span class="nx">tslab</span><span class="p">.</span><span class="nx">display</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="sb">`&lt;img src=&quot;</span><span class="si">${</span><span class="nx">ShareOfferDiagramUrl</span><span class="si">}</span><span class="sb">&quot;/&gt;`</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UnhandledPromiseRejection: Error: spawn java ENOENT
-    at Process.ChildProcess._handle.onexit (node:internal/child_process:283:19)
-    at onErrorNT (node:internal/child_process:478:16)
-    at processTicksAndRejections (node:internal/process/task_queues:83:21) {
-  errno: <span class=" -Color -Color-Yellow">-2</span>,
-  code: <span class=" -Color -Color-Green">&#39;ENOENT&#39;</span>,
-  syscall: <span class=" -Color -Color-Green">&#39;spawn java&#39;</span>,
-  path: <span class=" -Color -Color-Green">&#39;java&#39;</span>,
-  spawnargs: [
-    <span class=" -Color -Color-Green">&#39;-jar&#39;</span>,
-    <span class=" -Color -Color-Green">&#39;-Djava.awt.headless=true&#39;</span>,
-    <span class=" -Color -Color-Green">&#39;--add-opens=java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=&quot;ALL-UNNAMED&quot;&#39;</span>,
-    <span class=" -Color -Color-Green">&#39;/opt/app/book/node_modules/plantuml/vendor/plantuml.jar&#39;</span>,
-    <span class=" -Color -Color-Green">&#39;-tsvg&#39;</span>,
-    <span class=" -Color -Color-Green">&#39;-pipe&#39;</span>
-  ]
-}
-</pre></div>
-</div>
-<img alt="_images/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.svg" src="_images/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.svg" /></div>
+<div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/VLJ1Rjim3BthAuYUx20hkXvz6Bh56rOKM86cw2N8GPLeXwWYPPAS8dy_MR8x9Kvp2HYHZuzy9CtkdEVMTrl5F7c5yBrfI9EaAhCUcmOjl2pWbpBlZ0jlB5mjwmSeVXibqPPNm1rieZsu1_-zSzte5ufGUxOBT2HenxKFKIC9fCWOID4y2lmVzuGjEMyFCT8EVnXBoU7Bjm5TmO-Eb5nObE6Tk8ez5AR_nUpPbIm1UkYGf1gAWINQFGciuFRc1bRYEDSJ_ktG-JNJnYEOVOXF-Fb72USHuAZLf5lWMduIycpUK4EB6YttABCIayYnejK5x9fbPINCV1p0dyVddnLxGKiD2Ux9Q30D-0sERVVrST_P0DVn_G8H-teTHkACsd_0w_iQYXOzxBfNHU813oMxlOP8U9Xo59thnSY2CUWIgsUfyhxlST9Li29RJNBOhc2LRFIVQ0IhuAsDwBQX_dMMBsbHWUl9NhbuAnQdJRgTqGvZboKxC-LXtyy9cSvYAkGbZbp90NzPoGd9vqfcvt5Mo9Hg8kGeKhziHpfEhorq5ZPr6Mh9hwkGtFCvRD7pPCrcDYrFP9lDfjUNsDn98fTp7iqtdSexMR_9zZHyHBGZYU4Exe88_UVj7m00"/></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -779,7 +772,7 @@ What we want to offer</p></li>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">All about VC &amp; Revocable VCs</p>
       </div>
     </a>
     <a class="right-next"

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>&lt;no title&gt; &#8212; Self sovereign identity with Affinidi SDK</title>
+    <title>All about VC &amp; Revocable VCs &#8212; Self sovereign identity with Affinidi SDK</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Howto offer VC to Holder" href="request-for-offer.html" />
-    <link rel="prev" title="Wallet Internals" href="demo-sdk-create-wallet.html" />
+    <link rel="prev" title="Create Affinidi Wallet Demo" href="demo-sdk-create-wallet.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -150,10 +150,9 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Wallet Internals</a></li>
-
-
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Create Affinidi Wallet Demo</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">All about VC &amp; Revocable VCs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="request-for-offer.html">Howto offer VC to Holder</a></li>
 
 
@@ -352,7 +351,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>All about VC & Revocable VCs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -361,9 +360,13 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-create-a-unsigned-credential">Lets create a Unsigned Credential</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-sign-it">Lets sign it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revocation">Revocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revocation-api-internals">Revocation API internals</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -374,47 +377,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span># Revocable VCs 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:1 - Cannot find name &#39;#&#39;.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:1 - Private identifiers are not allowed outside class bodies.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:2 - Invalid character.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:3 - &#39;;&#39; expected.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:3 - Cannot find name &#39;Revocable&#39;.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:13 - &#39;;&#39; expected.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:13 - Cannot find name &#39;VCs&#39;.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">Lets</span><span class="w"> </span><span class="nx">prepare</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">test</span><span class="w"> </span><span class="nx">wallets</span><span class="w"> </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<p>Lets prepare our test wallets</p>
-</div>
-</div>
-<div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="all-about-vc-revocable-vcs">
+<h1>All about VC &amp; Revocable VCs<a class="headerlink" href="#all-about-vc-revocable-vcs" title="Permalink to this heading">#</a></h1>
+<p>Verifiable credentials is a core of self sovering identity. <a class="reference external" href="https://www.w3.org/TR/vc-data-model/">VC data model spec</a> describe it in details in next video</p>
+<div class="container16x9"><iframe src="https://www.youtube.com/embed/owbkzvLhblk" class="responsive-iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p>Lets prepare our test wallets
+You could follow this notebook in video</p>
+<div class="container16x9"><iframe src="https://www.youtube.com/embed/91oIel04pvE" class="responsive-iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createWallet</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@affinidi/wallet-node-sdk&#39;</span><span class="p">)</span>
 <span class="c1">// @ts-ignore</span>
@@ -430,7 +398,7 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;424046e7d5c687a274b61664bd30f557a43cfbb8f2c13535dea0312ea387db6f&#39;</span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;your api key&gt;&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -441,6 +409,25 @@ document.write(`
 <span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;prod&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">accessApiKey</span><span class="p">,</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>evalmachine.&lt;anonymous&gt;:5
+    accessApiKey,
+    ^
+
+ReferenceError: accessApiKey is not defined
+    at evalmachine.&lt;anonymous&gt;:5:5
+    at evalmachine.&lt;anonymous&gt;:9:3
+    at sigintHandlersWrap (node:vm:268:12)
+    at Script.runInThisContext (node:vm:127:14)
+    at Object.runInThisContext (node:vm:305:38)
+    at Object.execute (/usr/local/lib/node_modules/tslab/dist/executor.js:162:38)
+    at JupyterHandlerImpl.handleExecuteImpl (/usr/local/lib/node_modules/tslab/dist/jupyter.js:219:38)
+    at /usr/local/lib/node_modules/tslab/dist/jupyter.js:177:57
+    at async JupyterHandlerImpl.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:177:21)
+    at async ZmqServer.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:375:25)
 </pre></div>
 </div>
 </div>
@@ -467,20 +454,10 @@ We need to have a holder did to issue a VC for concrete holder.</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span>## Lets create a Unsigned Credential 
-I just create a custom schema for content Like VCs. Its allow to issue verifiable likes for a content that i like.
-[Schema](https://ui.schema.affinidi.com/schemas/ContentLikeV1-0)
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<p class="rubric">Lets create a Unsigned Credential</p>
+<section id="lets-create-a-unsigned-credential">
+<h2>Lets create a Unsigned Credential<a class="headerlink" href="#lets-create-a-unsigned-credential" title="Permalink to this heading">#</a></h2>
 <p>I just create a custom schema for content Like VCs. Its allow to issue verifiable likes for a content that i like.
 <a class="reference external" href="https://ui.schema.affinidi.com/schemas/ContentLikeV1-0">Schema</a></p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="c1">// https://ui.schema.affinidi.com/schemas/ContentLikeV1-0</span>
@@ -490,16 +467,7 @@ I just create a custom schema for content Like VCs. Its allow to issue verifiabl
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">Every</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">unique</span><span class="w"> </span><span class="nx">id</span><span class="p">.</span><span class="w"> </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>Every VC should have a unique id.</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`claimId:</span><span class="si">${</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">36</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
@@ -649,16 +617,7 @@ You could upgrade your VC to revocapbe VC. We will prepare and publish revocatio
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">Together</span><span class="w"> </span><span class="kd">with</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="nx">issue</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">Revocation</span><span class="w"> </span><span class="nx">List</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">connected</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">Credential</span><span class="p">.</span><span class="w"> </span><span class="nx">This</span><span class="w"> </span><span class="nx">credential</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">Issuer</span><span class="w"> </span><span class="nx">specific</span><span class="w"> </span><span class="nx">List</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">Signed</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">controled</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">issuer</span><span class="p">.</span><span class="w"> </span><span class="nx">Every</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="nx">when</span><span class="w"> </span><span class="nx">Issuer</span><span class="w"> </span><span class="nx">bublish</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Revocable</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">revoke</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">VC</span><span class="p">.</span><span class="w"> </span><span class="nx">Revocation</span><span class="w"> </span><span class="nx">List</span><span class="w"> </span><span class="nx">gets</span><span class="w"> </span><span class="nx">updated</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">published</span><span class="p">.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>Together with a VC we issue a Revocation List VC connected to our Credential. This credential is Issuer specific List and Signed and controled by issuer. Every time when Issuer bublish new Revocable VC or revoke a VC. Revocation List gets updated and published.</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">revocationListVc</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
@@ -692,19 +651,9 @@ You could upgrade your VC to revocapbe VC. We will prepare and publish revocatio
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span>## Lets sign it 
-To make it verifiable we just need to sign it.
-So issuence on edge is simple operation 
-- build vc 
-- sign vc
-- sharewith holder (optional )
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<p class="rubric">Lets sign it</p>
+</section>
+<section id="lets-sign-it">
+<h2>Lets sign it<a class="headerlink" href="#lets-sign-it" title="Permalink to this heading">#</a></h2>
 <p>To make it verifiable we just need to sign it.
 So issuence on edge is simple operation</p>
 <ul class="simple">
@@ -712,8 +661,6 @@ So issuence on edge is simple operation</p>
 <li><p>sign vc</p></li>
 <li><p>sharewith holder (optional )</p></li>
 </ul>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">signedRevocableVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletIssuer</span><span class="p">.</span><span class="nx">signUnsignedCredential</span><span class="p">(</span><span class="nx">RevocableVC</span><span class="p">)</span>
@@ -773,20 +720,11 @@ So issuence on edge is simple operation</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span>## Verification
-Main idea of VC is verifiable data
-We could do a verification on edge with our common library
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<p class="rubric">Verification</p>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Permalink to this heading">#</a></h2>
 <p>Main idea of VC is verifiable data
 We could do a verification on edge with our common library</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Affinity</span><span class="o">:</span><span class="w"> </span><span class="kt">Verifier</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@affinidi/common&#39;</span><span class="p">)</span>
@@ -822,20 +760,11 @@ We could do a verification on edge with our common library</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span>{ result: true, error: &#39;&#39; }
-## Revocation 
-Now we could change our mind 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>{ result: true, error: ‘’ }</p>
-<p class="rubric">Revocation</p>
+</section>
+<section id="revocation">
+<h2>Revocation<a class="headerlink" href="#revocation" title="Permalink to this heading">#</a></h2>
 <p>Now we could change our mind</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">walletIssuer</span><span class="p">.</span><span class="nx">revokeCredential</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; dont like any more &#39;</span><span class="p">)</span>
@@ -843,16 +772,7 @@ Now we could change our mind
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">Now</span><span class="w"> </span><span class="nx">credential</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">invalid</span><span class="w"> </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>Now credential is invalid</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w">  </span><span class="nx">verificationRevokedResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">verifier4</span><span class="p">.</span><span class="nx">validateCredential</span><span class="p">(</span><span class="nx">signedRevocableVC</span><span class="p">)</span>
@@ -881,21 +801,17 @@ error: ‘claimId:gacultz6iz: Credential revocation status check result is negat
 }</p>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span>## Revocation API internals
-[Affinidi Revocation Service](http://revocation-api.prod.affinity-project.org/api-docs) Do all managment of revocation list.
-Service use did auth to reensure that issuer could have access only to his revocation lists and could revoke only his credentials 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<p class="rubric">Revocation API internals</p>
+</section>
+<section id="revocation-api-internals">
+<h2>Revocation API internals<a class="headerlink" href="#revocation-api-internals" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="http://revocation-api.prod.affinity-project.org/api-docs">Affinidi Revocation Service</a> Do all managment of revocation list.
 Service use did auth to reensure that issuer could have access only to his revocation lists and could revoke only his credentials</p>
-</div>
-</div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;plantuml-encoder&#39;</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">tslab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;tslab&quot;</span><span class="p">);</span>
@@ -941,45 +857,12 @@ Service use did auth to reensure that issuer could have access only to his revoc
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/jLPDZzis4BthLmosXxKNbkHiRaOto3Pf0AD1MwpJzh3mWIP75hkqoFB3pZReVy-GqbgITmqqGEkJ998pR-QzUNJsrdbcVTYfp4kl46whIZPIo0Ny_WuixZLdNke69eDd9Ps7w_drV0hBu1nQS59WnhZN5k1YwLoWRrn9R3pCm8c72s2k-v0PoYUvD8mMB-xwg2kqUyaHxkzhxurRbEMM4B5DmVMkP1siijAX4Ua0KsMFAMT64boZr-jP5u42ZDSBOxKesaZ-CQUtFv7xGjjjIQkvqDoLG4_hTO9h7MGtDt0RV0qtDrbNJlw65XR0BJAF8AG05ZTO_2kWynaTeXtTtaMxvlK3DYVd1mUTqGsL7NEbpdLTtn0PH05bRZHbOjngHmS_MBq3NoFKSbk3mZqgC6YTeLBa7e47QsEUIka3LDAdlNrB3wzvplcseDRMOLD8NUvvJXBmmULMvP7KyhijDcYfl9ofhRQqSmUdxAVwPRE5uvRrkiXWM2ILlmbIYPxYZtHobN9DliG8WlPAffOYYgsGWgGIDf6JzxBzrBt2FzDX4x9RFyJZMjqiibS5BAjlhPLhYpcF31WFBsbylGQXqG410FmSlpwYdm4fNVfB1rLGYlgi50h8-xQy50bO8zgMV2l8FbeC5h_rtHkaYlrzTrmWu9EbTuD6mw6Ml0PiE3CkA6BOFGCQCRfQ1mAvGGYEol8QU8tyOIpC5YEmogCjuDTYLP3Kv2XT7yV9RKEHOd0JDfIeHZ4jiki2Len4IvR0TWucGqqCnK2TZMZ9KqR0Q4Xbsbz9ce28Co9yYF0e-Ei2VlXlcjsLsgDhHHmRp9xwqBQshvW9qRQEjQ1Is_e8X0-f6L7LfvvnFP_3_McksT20npp3zuJqaG1W0mqUMXeFp7KU9TvCrsCB-VcNJpykuEfg-U7gAfqOQE3ZoU54sNZFIVQ-v2EpC15OiQ0yyVutWgwUgOnqyceUVyIoxdJ37AOXSy4OJS_KkvePWusZ21uRQXcZa9UFw2u7Rje-BPB4JdeqFJ7T3k3TcL8chKhFBKz7H2MU8eVHj--UPFVyecWLEKZo1QAv7KUfNo43Z4OtvWh-8DMm1e8HyRvHUYjvAtGkoVi7Cp9BL7K3mCYKPBnC184YaoAtSdftt5v0cYavSeUbw4GSwM_dovztSD8zcZ7MMqDNgh4o0Zqb_40EcUOsrI4A-ArzEA-hoO66z6b_z2nD0vLOFGQpw8EDlfBg8_BIXTHx3BrcpqcxFskOBut9YiAU1qaTQYENg_S_jV-2_fqoeV_zxo9zIogbFtXV0G00"/></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-</pre></div>
+<div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/jLPDZzis4BthLmosXxKNbkHiRaOto3Pf0AD1MwpJzh3mWIP75hkqoFB3pZReVy-GqbgITmqqGEkJ998pR-QzUNJsrdbcVTYfp4kl46whIZPIo0Ny_WuixZLdNke69eDd9Ps7w_drV0hBu1nQS59WnhZN5k1YwLoWRrn9R3pCm8c72s2k-v0PoYUvD8mMB-xwg2kqUyaHxkzhxurRbEMM4B5DmVMkP1siijAX4Ua0KsMFAMT64boZr-jP5u42ZDSBOxKesaZ-CQUtFv7xGjjjIQkvqDoLG4_hTO9h7MGtDt0RV0qtDrbNJlw65XR0BJAF8AG05ZTO_2kWynaTeXtTtaMxvlK3DYVd1mUTqGsL7NEbpdLTtn0PH05bRZHbOjngHmS_MBq3NoFKSbk3mZqgC6YTeLBa7e47QsEUIka3LDAdlNrB3wzvplcseDRMOLD8NUvvJXBmmULMvP7KyhijDcYfl9ofhRQqSmUdxAVwPRE5uvRrkiXWM2ILlmbIYPxYZtHobN9DliG8WlPAffOYYgsGWgGIDf6JzxBzrBt2FzDX4x9RFyJZMjqiibS5BAjlhPLhYpcF31WFBsbylGQXqG410FmSlpwYdm4fNVfB1rLGYlgi50h8-xQy50bO8zgMV2l8FbeC5h_rtHkaYlrzTrmWu9EbTuD6mw6Ml0PiE3CkA6BOFGCQCRfQ1mAvGGYEol8QU8tyOIpC5YEmogCjuDTYLP3Kv2XT7yV9RKEHOd0JDfIeHZ4jiki2Len4IvR0TWucGqqCnK2TZMZ9KqR0Q4Xbsbz9ce28Co9yYF0e-Ei2VlXlcjsLsgDhHHmRp9xwqBQshvW9qRQEjQ1Is_e8X0-f6L7LfvvnFP_3_McksT20npp3zuJqaG1W0mqUMXeFp7KU9TvCrsCB-VcNJpykuEfg-U7gAfqOQE3ZoU54sNZFIVQ-v2EpC15OiQ0yyVutWgwUgOnqyceUVyIoxdJ37AOXSy4OJS_KkvePWusZ21uRQXcZa9UFw2u7Rje-BPB4JdeqFJ7T3k3TcL8chKhFBKz7H2MU8eVHj--UPFVyecWLEKZo1QAv7KUfNo43Z4OtvWh-8DMm1e8HyRvHUYjvAtGkoVi7Cp9BL7K3mCYKPBnC184YaoAtSdftt5v0cYavSeUbw4GSwM_dovztSD8zcZ7MMqDNgh4o0Zqb_40EcUOsrI4A-ArzEA-hoO66z6b_z2nD0vLOFGQpw8EDlfBg8_BIXTHx3BrcpqcxFskOBut9YiAU1qaTQYENg_S_jV-2_fqoeV_zxo9zIogbFtXV0G00"/></div></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1015,7 +898,7 @@ unknown msg_type: comm_msg
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Wallet Internals</p>
+        <p class="prev-next-title">Create Affinidi Wallet Demo</p>
       </div>
     </a>
     <a class="right-next"
@@ -1041,9 +924,13 @@ unknown msg_type: comm_msg
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-create-a-unsigned-credential">Lets create a Unsigned Credential</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-sign-it">Lets sign it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revocation">Revocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revocation-api-internals">Revocation API internals</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

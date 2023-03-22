@@ -17,22 +17,10 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Create Affinidi Wallet Demo 
-## What wallet actually is ?
-Name wallet create a lot of confusion. In real life you keep your kredit cards, money, identity cards in a wallet.
-Any crypto wallet have one and only one function that really matter - it is manage and give access to your private and public keys.
-
-Wallet is more
-- key manager - manage access to a keys 
-- signer - sign VCs , transactions, JWTs with your private key
-
-Majority of crypto Wallets show a state of your account and etc. Affinity Wallet is more focused on VCs 
-   
-
-## Create a wallet on edge 
-- get your API key [production](https://apikey.affinidi.com/) or register affinidi account on [register](https://build.affinidi.com/register)
-- set env to prod 
-
+const sdk = await walletFactory.createWallet(options, password)
+const  seed = sdk.encryptedSeed 
+const  did = sdk.did  
+  
 ------------------
 
 
