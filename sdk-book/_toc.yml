@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: demo-sdk-create-wallet.ipynb
+- file: create-revocable-vc.ipynb
+- file: request-for-offer.ipynb
+- file: share-vp.ipynb
+- file: pex-vp.ipynb
+- file: credential-storage.ipynb
+- file: user-managment.ipynb
+

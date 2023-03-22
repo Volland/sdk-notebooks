@@ -126,3 +126,6 @@ dist/
 # Generated files (misc.)
 .docusaurus
 .cache-loader
+.ipynb_checkpoints
+sdk-book/_build
+

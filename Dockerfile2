@@ -1,0 +1,4 @@
+FROM jdelemar/jupyterlab
+RUN apk add --update git ssh
+RUN pip install -U jupyter-book ghp-import
+RUN mkdir -p /opt/app/book

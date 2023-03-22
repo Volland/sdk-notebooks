@@ -1,0 +1,59 @@
+title: Self sovereign identity with Affinidi SDK
+author: Volodymyr Pavlyshyn
+logo: logo.png
+
+execute:
+  execute_notebooks: 'off'
+  execute_notebooks: cache
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/Volland/sdk-notebooks/sdk-book  # Online location of your book
+  path_to_book: docs  # Optional path to your book, relative to the repository root
+  branch: jbook  # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: true
+  use_repository_button: true
+
+parse:
+  myst_substitutions:
+    # The video_embed substitution below is essentially a macro to avoid
+    # repeating all of the YouTube embed code for each video in the book.
+    # The %%VID%% part of the src attribute is replaced by the YouTube video
+    # id at each place where a video is linked in the textbook source.
+    video_embed: '<div class="container16x9"><iframe src="https://www.youtube.com/embed/%%VID%%" class="responsive-iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>'
+    # Macros for exercises. It's tricky to get these to work for both HTML
+    # and PDF. If you make any changes, be sure to check both outputs. If you
+    # change the star symbol, make sure to change it at the end of chapter 1,
+    # too.
+    ex: |
+      ---
+      **Exercise: %%_NAME%% [%%STARS%%]**
+    ex1: '{{ ex | replace("%%STARS%%", "&starf;") | replace("%%_NAME%%", "%%NAME%%")}}'
+    ex2: '{{ ex | replace("%%STARS%%", "&starf;&starf;") | replace("%%_NAME%%", "%%NAME%%")}}'
+    ex3: '{{ ex | replace("%%STARS%%", "&starf;&starf;&starf;") | replace("%%_NAME%%", "%%NAME%%")}}'
+    ex4: '{{ ex | replace("%%STARS%%", "&starf;&starf;&starf;&starf;") | replace("%%_NAME%%", "%%NAME%%")}}'
+    solutions: |
+      Solutions to most exercises are <a href="https://github.com/cs3110/textbook-solutions">available</a>.
+      Fall 2022 is the first public release of these solutions.
+      Though they have been available to Cornell students for a few years,
+      it is inevitable that wider circulation will reveal improvements that
+      could be made. We are happy to add or correct solutions. Please make
+      contributions through GitHub.
+    code_link: '<a href="../../code/%%NAME%%">%%NAME%%</a>'
+  # Extensions to enable in the myst parser. See
+  # https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    # - deflist
+    - dollarmath
+    # - html_admonition
+    # - html_image
+    - linkify
+    # - replacements
+    # - smartquotes
+    - substitution  

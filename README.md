@@ -34,7 +34,7 @@ together with notebook i try to share a code samples so if you want you could go
 ### Guide to hands one notebooks 
 | Title  Video | Notebook | Note |
 |--------------|----------|------|
-|[Affinidi SDK : Whats happen when we create a wallet]( https://www.youtube.com/watch?v=Pk5Rnd5ixCI&list=PL1e3Vu_V-AU9yKjCWIPWDZylRVZvw5kPW&index=1)| [demo-sdk-create-wallet](./demo-sdk-create-wallet.ipynb)| Get started and create wallet|
+|[Affinidi SDK : Whats happen when we create a wallet]( https://www.youtube.com/watch?v=Pk5Rnd5ixCI&list=PL1e3Vu_V-AU9yKjCWIPWDZylRVZvw5kPW&index=1)| [demo-sdk-create-wallet](.sdk-book/demo-sdk-create-wallet.ipynb)| Get started and create wallet|
 |[Issue, Verify , Revoke VCs on Edge. How to keep control on issued Vcs](https://www.youtube.com/watch?v=91oIel04pvE&list=PL1e3Vu_V-AU9yKjCWIPWDZylRVZvw5kPW&index=2)|[reate-revocable-vc](./create-revocable-vc.ipynb)| core VCs operations . [standalone ts app](./create-revocable-credential.ts)|
 |[Affinidi SDK: Howto offer VC to holder. Exchange protocols](https://www.youtube.com/watch?v=6PsQOLE6D8k&list=PL1e3Vu_V-AU9yKjCWIPWDZylRVZvw5kPW&index=3)|[offer VC](./request-for-offer.ipynb)| Exchange protocols Offer a VC [standalone app](./offer-vc.ts)|
 |[AffinidiSDK: Share VCs with a Verifier via VP. handson session](https://www.youtube.com/watch?v=wPgcwOM0zyE&list=PL1e3Vu_V-AU9yKjCWIPWDZylRVZvw5kPW&index=4)| [share-vp](./share-vp.ipynb)| All about VP. See more theoretical video - [Verifiable presentation is an answer.](https://www.youtube.com/watch?v=s42fvj_qf4k)|
@@ -53,3 +53,6 @@ together with notebook i try to share a code samples so if you want you could go
 
 ## More about SSI 
 - [About SSI list](https://www.youtube.com/playlist?list=PL1e3Vu_V-AU_juJXmZzFDVvOrbapC3dpz)
+
+## Book 
+docker run  -it -v /Users/volodymyrpavlyshyn/Documents/work/personal/sdk-notebooks:/opt/app/book --entrypoint sh  jbook3
