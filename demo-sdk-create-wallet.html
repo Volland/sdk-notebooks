@@ -1,0 +1,1379 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Wallet Internals &#8212; Self sovereign identity with Affinidi SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'demo-sdk-create-wallet';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="create-revocable-vc.html" />
+    <link rel="prev" title="Welcome to Self Severing Identity with Affinidi SDK" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Self sovereign identity with Affinidi SDK</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Self Severing Identity with Affinidi SDK
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Wallet Internals</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="request-for-offer.html">Howto offer VC to Holder</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="share-vp.html">Howto Share VC with Verifier</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="pex-vp.html">Presentation Exchange</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="credential-storage.html">Affinidi Vault - Credential Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-managment.html">Affinidi Vault - Custodial Wallet</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book/issues/new?title=Issue%20on%20page%20%2Fdemo-sdk-create-wallet.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/demo-sdk-create-wallet.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Wallet Internals</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Wallet Internals</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#unlock-wallet-with-seed-and-password">Unlock wallet with seed and password</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#did-magic-lets-resolve-it">DID magic . lets resolve it</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span># Create Affinidi Wallet Demo 
+## What wallet actually is ?
+Name wallet create a lot of confusion. In real life you keep your kredit cards, money, identity cards in a wallet.
+Any crypto wallet have one and only one function that really matter - it is manage and give access to your private and public keys.
+
+Wallet is more
+- key manager - manage access to a keys 
+- signer - sign VCs , transactions, JWTs with your private key
+
+Majority of crypto Wallets show a state of your account and etc. Affinity Wallet is more focused on VCs 
+   
+
+## Create a wallet on edge 
+- get your API key [production](https://apikey.affinidi.com/) or register affinidi account on [register](https://build.affinidi.com/register)
+- set env to prod 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:1 - Cannot find name &#39;#&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:1 - Private identifiers are not allowed outside class bodies.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:2 - Invalid character.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:3 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:3 - Cannot find name &#39;Create&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:10 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:10 - Cannot find name &#39;Affinidi&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:19 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:19 - Cannot find name &#39;Wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:26 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1:26 - Cannot find name &#39;Demo&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:1 - Cannot find name &#39;#&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:1 - Private identifiers are not allowed outside class bodies.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:2 - Invalid character.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:2 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:2 - Cannot find name &#39;#&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:3 - Invalid character.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:4 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:4 - Cannot find name &#39;What&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:9 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:9 - Cannot find name &#39;wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:16 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:16 - Cannot find name &#39;actually&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:25 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2:25 - Cannot find name &#39;is&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:1 - Cannot find name &#39;Name&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:6 - &#39;:&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:6 - Cannot find name &#39;wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:13 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:13 - Cannot find name &#39;create&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:20 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:20 - Cannot find name &#39;a&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:22 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:22 - Cannot find name &#39;lot&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:26 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:26 - Cannot find name &#39;of&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:29 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:29 - Cannot find name &#39;confusion&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:43 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:43 - Cannot find name &#39;real&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:48 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:48 - Cannot find name &#39;life&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:53 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:53 - Cannot find name &#39;you&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:57 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:57 - Cannot find name &#39;keep&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:62 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:62 - Cannot find name &#39;your&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:67 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:67 - Cannot find name &#39;kredit&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:74 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:74 - Cannot find name &#39;cards&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:74 - Left side of comma operator is unused and has no side effects.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:74 - Left side of comma operator is unused and has no side effects.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:81 - Cannot find name &#39;money&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:88 - Cannot find name &#39;identity&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:97 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:97 - Cannot find name &#39;cards&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:106 - Cannot find name &#39;a&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:108 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:108 - Cannot find name &#39;wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3:115 - Identifier expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:1 - Cannot find name &#39;Any&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:5 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:5 - Cannot find name &#39;crypto&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:12 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:12 - Cannot find name &#39;wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:19 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:19 - Cannot find name &#39;have&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:24 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:24 - Cannot find name &#39;one&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:28 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:28 - Cannot find name &#39;and&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:32 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:32 - Cannot find name &#39;only&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:37 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:37 - Cannot find name &#39;one&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:41 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:55 - &#39;(&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:55 - Cannot find name &#39;really&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:62 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:62 - Cannot find name &#39;matter&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:71 - Cannot find name &#39;it&#39;. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:74 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:74 - Cannot find name &#39;is&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:77 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:77 - Cannot find name &#39;manage&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:84 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:84 - Cannot find name &#39;and&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:88 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:88 - Cannot find name &#39;give&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:93 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:93 - Cannot find name &#39;access&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:100 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:100 - Cannot find name &#39;to&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:103 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:103 - Cannot find name &#39;your&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:108 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:116 - Cannot find name &#39;and&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:120 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:127 - Cannot find name &#39;keys&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4:132 - Identifier expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6:1 - Cannot find name &#39;Wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6:8 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6:8 - Cannot find name &#39;is&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6:11 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6:11 - Cannot find name &#39;more&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:3 - Cannot find name &#39;key&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:7 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:7 - Cannot find name &#39;manager&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:17 - Cannot find name &#39;manage&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:24 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:24 - Cannot find name &#39;access&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:31 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:31 - Cannot find name &#39;to&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:34 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:34 - Cannot find name &#39;a&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:36 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7:36 - Cannot find name &#39;keys&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:3 - Cannot find name &#39;signer&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:12 - Cannot find name &#39;sign&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:17 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:17 - Cannot find name &#39;VCs&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:17 - Left side of comma operator is unused and has no side effects.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:17 - Left side of comma operator is unused and has no side effects.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:23 - Cannot find name &#39;transactions&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:37 - Cannot find name &#39;JWTs&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:42 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:42 - &#39;with&#39; statements are not allowed in strict mode.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:47 - &#39;(&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:47 - Cannot find name &#39;your&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:52 - &#39;)&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:60 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8:60 - Cannot find name &#39;key&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:1 - Cannot find name &#39;Majority&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:10 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:10 - Cannot find name &#39;of&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:13 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:13 - Cannot find name &#39;crypto&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:20 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:20 - Cannot find name &#39;Wallets&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:28 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:28 - Cannot find name &#39;show&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:33 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:33 - Cannot find name &#39;a&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:35 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:35 - Cannot find name &#39;state&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:41 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:41 - Cannot find name &#39;of&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:44 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:44 - Cannot find name &#39;your&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:49 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:49 - Cannot find name &#39;account&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:57 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:57 - Cannot find name &#39;and&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:61 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:61 - Cannot find name &#39;etc&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:75 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:75 - Cannot find name &#39;Wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:82 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:82 - Cannot find name &#39;is&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:85 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:85 - Cannot find name &#39;more&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:90 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:90 - Cannot find name &#39;focused&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:98 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:98 - Cannot find name &#39;on&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:101 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10:101 - Cannot find name &#39;VCs&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:1 - Cannot find name &#39;#&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:1 - Private identifiers are not allowed outside class bodies.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:2 - Invalid character.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:2 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:2 - Cannot find name &#39;#&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:3 - Invalid character.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:4 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:4 - Cannot find name &#39;Create&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:11 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:11 - Cannot find name &#39;a&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:13 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:13 - Cannot find name &#39;wallet&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:20 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:20 - Cannot find name &#39;on&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:23 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13:23 - Cannot find name &#39;edge&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:3 - Cannot find name &#39;get&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:7 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:7 - Cannot find name &#39;your&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:12 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:12 - Cannot find name &#39;API&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:16 - &#39;;&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:16 - Cannot find name &#39;key&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:21 - Cannot find name &#39;production&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:33 - Cannot find name &#39;https&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:38 - &#39;,&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15:3 - Cannot find name &#39;set&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15:7 - &#39;,&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15:7 - Cannot find name &#39;env&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15:11 - &#39;,&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15:11 - Cannot find name &#39;to&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15:14 - &#39;,&#39; expected.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>15:14 - Cannot find name &#39;prod&#39;.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17:1 - &#39;,&#39; expected.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createWallet</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@affinidi/wallet-node-sdk&#39;</span><span class="p">)</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">EventComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@affinidi/wallet-core-sdk&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">walletFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">EventComponent</span><span class="p">.</span><span class="nx">AffinidiCore</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;your key&gt;&#39;</span><span class="w"> </span>
+<span class="w">    </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;prod&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">accessApiKey</span><span class="o">:</span><span class="w"> </span><span class="kt">accessApiKey</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>All you need on edge is a password</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;P@55w0rd!!&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we could generate you a wallet</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">sdk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletFactory</span><span class="p">.</span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">)</span>
+<span class="kd">const</span><span class="w">  </span><span class="nx">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">encryptedSeed</span><span class="w"> </span>
+<span class="kd">const</span><span class="w">  </span><span class="nx">did</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">did</span><span class="w">  </span>
+<span class="w">  </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">did</span><span class="w"> </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1tTmhOak5tWm1aaVpEaGlObVJrTjJVMU5HWmhPRGhpTnpaa05USTBOVGN3TUdGak9ERTJOVGRtWkRVNVlUQXpZamN6WlRRek1qVmlZVEZsTVRsaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXprd1pEWTNZbVppWm1NNE1HUXdNR1ZrWXpjd09EQmhOR001TVdZeFl6ZzBOREl3T0daaFltUXdNMlV4TlRoaE5Ua3hNR1kxWkRFMk1ERmxOamxsWWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiTkJqblFlQVRuTXVJQUFrZTlEcFhDeXAzcmJzcnBsQWFRQ1A0ZEl2b3NfNVJZRnJTc2VDdnBSY3k1XzFOMUpObzB2WEpDdWVVVmZvaHJtNHROenM2cmcifQ
+</pre></div>
+</div>
+</div>
+</div>
+<section id="wallet-internals">
+<h1>Wallet Internals<a class="headerlink" href="#wallet-internals" title="Permalink to this heading">#</a></h1>
+<p>Whats actually happens
+Our Wallet is clasical hierarchical deterministic wallet <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">based on BIP-32</a> standard.
+It is mean that based on seed (32 bit random entropy) we generate all private , public keys and derived addresses etc.</p>
+<p>All you need is seed.
+We never expose a seed or private keys ouside of wallet.</p>
+<p>We use a user pasword to encrypt a seed.
+As a result user get encrypted seed and password that allow to create an instance of wallet any time
+All you need is securely store this pair and do not share it on public internet</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;plantuml-encoder&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tslab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;tslab&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">diagram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">@startuml</span>
+<span class="sb">digraph G {</span>
+<span class="sb">    graph [rankdir = LR, splines=ortho];</span>
+
+<span class="sb">    node[shape=record];</span>
+<span class="sb">    User[label=&quot;User&quot;, height=4];</span>
+<span class="sb">    User2[label=&quot;User&quot;, height=4];</span>
+<span class="sb">    subgraph SDK {</span>
+<span class="sb">      graph [rankdir = LR, splines=ortho];</span>
+<span class="sb">      node[shape=record];</span>
+<span class="sb">      label = &quot;SDK&quot;;</span>
+<span class="sb">      random[label=&quot;random&quot;, height=1];</span>
+<span class="sb">      encrypt[label=&quot;encrypt&quot;, height=2];</span>
+<span class="sb">      seedGenerator[label=&quot;seed Generator&quot;, height=1];</span>
+<span class="sb">      bip32[label=&quot;bip32&quot;, height=2];</span>
+<span class="sb">      didDocGenerator[label=&quot;DidDoc Generator&quot;, height=1];</span>
+<span class="sb">      registry[label=&quot;Registry&quot;, height=1];</span>
+<span class="sb">    }</span>
+<span class="sb">    random -&gt; seedGenerator [label=&quot;32 bit&quot;]</span>
+<span class="sb">    User -&gt; seedGenerator [label=&quot;meta data&quot;]</span>
+<span class="sb">    seedGenerator -&gt; encrypt [label=&quot;seed&quot;]</span>
+<span class="sb">    User -&gt; encrypt [label=&quot;password&quot;]</span>
+<span class="sb">    encrypt -&gt; User2  [label=&quot;encrypted seed&quot;]</span>
+<span class="sb">    User -&gt; bip32 [label=&quot;meta data&quot;]</span>
+<span class="sb">    seedGenerator -&gt; bip32 [label=&quot;seed&quot;]</span>
+<span class="sb">    bip32 -&gt; didDocGenerator  [label=&quot;public keys&quot;]</span>
+<span class="sb">    bip32 -&gt; didDocGenerator  [label=&quot;private keys&quot;]</span>
+<span class="sb">    bip32 -&gt; registry [label=&quot;private keys&quot;]</span>
+<span class="sb">    didDocGenerator -&gt; registry [label=&quot;document&quot;]</span>
+<span class="sb">    registry -&gt; User2 [label=&quot;did&quot;]</span>
+<span class="sb">}</span>
+<span class="sb">@enduml`</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">urldiagram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;http://www.plantuml.com/plantuml/svg/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">diagram</span>
+<span class="nx">tslab</span><span class="p">.</span><span class="nx">display</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="sb">`&lt;img src=&quot;</span><span class="si">${</span><span class="nx">urldiagram</span><span class="si">}</span><span class="sb">&quot;/&gt;`</span><span class="p">)</span>
+<span class="w">    </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/ZPGzRuCm48PtViM9EHsQTAkeCaJAa4wfEg4C1f-25R2jisc5glptcW-RX90eJDpTSwzVto6YjR6CR5sL4HT7Ohg0BVn5u9u-Ied94nS42Npk5s1qAIIQH94jrE4zwaYfEAQcO1eJmbmHTuKs_ssGqf9bM2Pn-nule41nB6poTa4i7oEcpdedNvlTuEn9Rprwpnn0TwphZProx9DEaglAM-gZqTHhQ4QPKwEj1uTm99U1D8XyYnA9MHN6qIOXPESEo8HUXT5qmPmu5toZyXlvJPT-V03XKHXBZU_P3_4jUux6oS3Bn_MDmFUlbiwpZGzXiVVH2Yq3pYmRw6lAjGtZXCjnJPIdY6R6_Bhr3fWlExBxo00cgtBpdr7j1lsypslyGgylE6AoeD66hhDIv732nZpVG-A7MPnjykjy14-5vzguokiAfLzag8T11b2qbpr7QvJS_J_-0G00"/></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unknown msg_type: comm_open
+unknown msg_type: comm_msg
+unknown msg_type: comm_open
+unknown msg_type: comm_msg
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="unlock-wallet-with-seed-and-password">
+<h1>Unlock wallet with seed and password<a class="headerlink" href="#unlock-wallet-with-seed-and-password" title="Permalink to this heading">#</a></h1>
+<p>Now you could unlock your wallet with seed and password</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">sdk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletFactory</span><span class="p">.</span><span class="nx">openWalletByEncryptedSeed</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="nx">seed</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">sdk</span><span class="p">.</span><span class="nx">did</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">did</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>true
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="did-magic-lets-resolve-it">
+<h1>DID magic . lets resolve it<a class="headerlink" href="#did-magic-lets-resolve-it" title="Permalink to this heading">#</a></h1>
+<p>Dids follow a URI schema and could be parsed
+Every did have a</p>
+<ul class="simple">
+<li><p>schema . always equal to did</p></li>
+<li><p>method</p></li>
+<li><p>identifier
+Some did methods like <strong>element</strong> could have a initial parameters</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">didParser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;did-uri&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">parsedDid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">didParser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">did</span><span class="p">)</span>
+<span class="nx">parsedDid</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  reference: &#39;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1tTmhOak5tWm1aaVpEaGlObVJrTjJVMU5HWmhPRGhpTnpaa05USTBOVGN3TUdGak9ERTJOVGRtWkRVNVlUQXpZamN6WlRRek1qVmlZVEZsTVRsaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXprd1pEWTNZbVppWm1NNE1HUXdNR1ZrWXpjd09EQmhOR001TVdZeFl6ZzBOREl3T0daaFltUXdNMlV4TlRoaE5Ua3hNR1kxWkRFMk1ERmxOamxsWWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiTkJqblFlQVRuTXVJQUFrZTlEcFhDeXAzcmJzcnBsQWFRQ1A0ZEl2b3NfNVJZRnJTc2VDdnBSY3k1XzFOMUpObzB2WEpDdWVVVmZvaHJtNHROenM2cmcifQ&#39;,
+  did: &#39;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q&#39;,
+  method: &#39;elem&#39;,
+  identifier: &#39;EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q&#39;,
+  path: &#39;&#39;,
+  fragment: &#39;&#39;,
+  query: &#39;&#39;,
+  param: &#39;;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1tTmhOak5tWm1aaVpEaGlObVJrTjJVMU5HWmhPRGhpTnpaa05USTBOVGN3TUdGak9ERTJOVGRtWkRVNVlUQXpZamN6WlRRek1qVmlZVEZsTVRsaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXprd1pEWTNZbVppWm1NNE1HUXdNR1ZrWXpjd09EQmhOR001TVdZeFl6ZzBOREl3T0daaFltUXdNMlV4TlRoaE5Ua3hNR1kxWkRFMk1ERmxOamxsWWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiTkJqblFlQVRuTXVJQUFrZTlEcFhDeXAzcmJzcnBsQWFRQ1A0ZEl2b3NfNVJZRnJTc2VDdnBSY3k1XzFOMUpObzB2WEpDdWVVVmZvaHJtNHROenM2cmcifQ&#39;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Key operation for every did is a resolution of a diddocument
+Our affinidi-registry service do this job quite well</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">didDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">resolveDid</span><span class="p">(</span><span class="nx">sdk</span><span class="p">.</span><span class="nx">did</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">didDoc</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  &quot;@context&quot;: &quot;https://w3id.org/security/v2&quot;,
+  &quot;publicKey&quot;: [
+    {
+      &quot;id&quot;: &quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary&quot;,
+      &quot;usage&quot;: &quot;signing&quot;,
+      &quot;type&quot;: &quot;Secp256k1VerificationKey2018&quot;,
+      &quot;publicKeyHex&quot;: &quot;022ca63fffbd8b6dd7e54fa88b76d5245700ac81657fd59a03b73e4325ba1e19ba&quot;
+    },
+    {
+      &quot;id&quot;: &quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#recovery&quot;,
+      &quot;usage&quot;: &quot;recovery&quot;,
+      &quot;type&quot;: &quot;Secp256k1VerificationKey2018&quot;,
+      &quot;publicKeyHex&quot;: &quot;0390d67bfbfc80d00edc7080a4c91f1c844208fabd03e158a5910f5d1601e69eb5&quot;
+    }
+  ],
+  &quot;authentication&quot;: [
+    &quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary&quot;
+  ],
+  &quot;assertionMethod&quot;: [
+    &quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary&quot;
+  ],
+  &quot;id&quot;: &quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q&quot;
+}
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unknown msg_type: comm_open
+unknown msg_type: comm_msg
+unknown msg_type: comm_open
+unknown msg_type: comm_msg
+unknown msg_type: comm_open
+unknown msg_type: comm_msg
+unknown msg_type: comm_open
+unknown msg_type: comm_msg
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">As</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">see</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">two</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="nx">keys</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">part</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">document</span><span class="w"> </span>
+<span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="nx">signing</span><span class="o">**</span><span class="w"> </span><span class="nx">used</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">sign</span><span class="w"> </span><span class="nx">operations</span><span class="w"> </span>
+<span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="nx">recovery</span><span class="o">**</span><span class="w"> </span><span class="nx">could</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">used</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="nx">rotation</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">did</span><span class="w"> </span><span class="nb">document</span><span class="w"> </span><span class="nx">operations</span><span class="w"> </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<p>As you can see we have two public keys as a part of document</p>
+<ul class="simple">
+<li><p><strong>signing</strong> used for sign operations</p></li>
+<li><p><strong>recovery</strong> could be used for key rotation and did document operations</p></li>
+</ul>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "tslab"
+        },
+        kernelOptions: {
+            name: "tslab",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'tslab'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to Self Severing Identity with Affinidi SDK</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="create-revocable-vc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Wallet Internals</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#unlock-wallet-with-seed-and-password">Unlock wallet with seed and password</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#did-magic-lets-resolve-it">DID magic . lets resolve it</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Volodymyr Pavlyshyn
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

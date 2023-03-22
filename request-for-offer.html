@@ -1,0 +1,870 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Howto offer VC to Holder &#8212; Self sovereign identity with Affinidi SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'request-for-offer';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Howto Share VC with Verifier" href="share-vp.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="create-revocable-vc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Self sovereign identity with Affinidi SDK</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Self Severing Identity with Affinidi SDK
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Wallet Internals</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Howto offer VC to Holder</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="share-vp.html">Howto Share VC with Verifier</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="pex-vp.html">Presentation Exchange</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="credential-storage.html">Affinidi Vault - Credential Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-managment.html">Affinidi Vault - Custodial Wallet</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book/issues/new?title=Issue%20on%20page%20%2Frequest-for-offer.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/request-for-offer.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Howto offer VC to Holder</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Howto offer VC to Holder</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#offer-request">Offer Request</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#offer-response">Offer Response</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#verification-of-response">Verification of Response</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-vc-for-holder">Issue VC for Holder</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">plantuml</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;plantuml&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tslab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;tslab&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nx">jwt_decode</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;jwt-decode&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="howto-offer-vc-to-holder">
+<h1>Howto offer VC to Holder<a class="headerlink" href="#howto-offer-vc-to-holder" title="Permalink to this heading">#</a></h1>
+<p>We already know about classical triangle of roles.
+It is <strong>user centric</strong></p>
+<ul class="simple">
+<li><p>holder - user that own a VCs</p></li>
+<li><p>issuer - party that issue a VC</p></li>
+<li><p>verifier - could aks holder for a VCs to Verify</p></li>
+</ul>
+<p>We need a <strong>protocol</strong> that could proof the identity and <strong>autorship</strong> for every role.
+As we know our identities is our keypairs so we should sign some entities to proof our identity
+Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;plantuml-encoder&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tslab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;tslab&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">diagram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">@startuml</span>
+<span class="sb">digraph F {</span>
+<span class="sb">  fontname=&quot;Helvetica,Arial,sans-serif&quot;</span>
+
+<span class="sb">	node [fontname=&quot;Helvetica,Arial,sans-serif&quot;]</span>
+<span class="sb">	edge [fontname=&quot;Helvetica,Arial,sans-serif&quot;]</span>
+
+<span class="sb">	node [shape = circle];</span>
+<span class="sb">	holder [lablel=&quot;holder&quot; shape = doublecircle]</span>
+<span class="sb">		</span>
+<span class="sb">	issuer [lablel=&quot;issuer&quot;]</span>
+<span class="sb">	verifier [lablel=&quot;verifier&quot;]</span>
+<span class="sb">	</span>
+<span class="sb">	verifier -&gt; holder[label = &quot;request for sharing&quot;]</span>
+<span class="sb">	holder -&gt; verifier[label = &quot;request for sharing&quot;]</span>
+<span class="sb">	issuer -&gt; holder [label = &quot;request for offer&quot;];</span>
+<span class="sb">	holder -&gt; issuer [label = &quot;response for offer&quot;];</span>
+<span class="sb">	issuer -&gt; holder [label = &quot;VC&quot;];</span>
+<span class="sb">}</span>
+<span class="sb">@enduml</span>
+<span class="sb">`</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">urldiagram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;http://www.plantuml.com/plantuml/svg/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">diagram</span>
+<span class="nx">tslab</span><span class="p">.</span><span class="nx">display</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="sb">`&lt;img src=&quot;</span><span class="si">${</span><span class="nx">urldiagram</span><span class="si">}</span><span class="sb">&quot;/&gt;`</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/ZP91QiCm44NNcbCCMYSd20ufWT0JT1EoKAsnBL0aLoDdKthtUB1LH0XjbgF_d_uV8JXmDYbFLm_MzScC0vxm6n2x678mLshqE_aRPTUQpLjonc_O1Duo9TTf01MY9Jo_vBw08jk_xYwNys16mWPRbrfFbnse8NfB2S_UV7hoZLvcZSLfupGBgn-K0kMOfvfOPgbqapHNQ-L4r4hVxd794IFvEKOd-fg8y_nOIRAJ2xr0QxqPAF2_oDhlDmEV4x7hfDUkpgXMAm2FCJ0z47z4V1p5yGC72bQ-mXq0"/></div></div>
+</div>
+<p>With request/responce for offer holder and issuer could identify each other</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">ShareOfferDiagram</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">plantuml</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">@startuml</span>
+<span class="sb">title Affinidi: Affinidi: Offer VC Flow</span>
+<span class="sb">actor &quot;SDK (Holder)&quot; as holder</span>
+<span class="sb">actor  &quot;SDK (Issuer)&quot; as client</span>
+<span class="sb">participant  &quot;Affinidi Issuer&quot; as issuer</span>
+<span class="sb">participant &quot;Affinidi Registry&quot; as registry</span>
+
+<span class="sb">client -&gt; issuer: BuildCredentialOffer(offeredCredentials)</span>
+<span class="sb">issuer -&gt; client : Issuer Service: 200 [credentialOfferRequest]</span>
+<span class="sb">note over client, issuer: credentialOfferRequest signing and credentialOfferRequestToken generated</span>
+<span class="sb">issuer -&gt; holder: 200[credentialOfferRequestToken]</span>
+
+<span class="sb">note over holder, client</span>
+<span class="sb">NOTE:</span>
+<span class="sb">Verification of the Issuer signature on the credentialOfferRequestToken</span>
+<span class="sb">1. Resolve Issuer DID (get publicKey)</span>
+<span class="sb">2. Verify Issuer signature (using publicKey)</span>
+<span class="sb">end note </span>
+<span class="sb">holder -&gt; registry: resolveDid(IssuerDid)</span>
+<span class="sb">registry -&gt; holder: 200 [DidDocument]</span>
+<span class="sb">holder -&gt; client: send back(CredentialOfferResponseToken)</span>
+
+<span class="sb">note over client, holder</span>
+<span class="sb">Verification of the Holder signature on the CredentialOfferResponseToken</span>
+<span class="sb">1. Resolve Holder DID (get publicKey)</span>
+<span class="sb">2. Verify Holder signature (using publicKey)</span>
+<span class="sb">end note</span>
+<span class="sb">client -&gt; registry: resolveDid(HolderDid)</span>
+<span class="sb">registry -&gt; client: 200[DidDocument]</span>
+<span class="sb">client -&gt; issuer: CreateSignedCredential(data, metadata, **requesterDid**)</span>
+<span class="sb">issuer -&gt; client: 200[signedCredentials]</span>
+<span class="sb">client -&gt; holder: 200 [Token wirth credentials inside]</span>
+
+<span class="sb">@enduml</span>
+<span class="sb">`</span><span class="p">);</span>
+<span class="nx">tslab</span><span class="p">.</span><span class="nx">display</span><span class="p">.</span><span class="nx">svg</span><span class="p">(</span><span class="nx">ShareOfferDiagram</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>UnhandledPromiseRejection: Error: spawn java ENOENT
+    at Process.ChildProcess._handle.onexit (node:internal/child_process:283:19)
+    at onErrorNT (node:internal/child_process:478:16)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+  errno: <span class=" -Color -Color-Yellow">-2</span>,
+  code: <span class=" -Color -Color-Green">&#39;ENOENT&#39;</span>,
+  syscall: <span class=" -Color -Color-Green">&#39;spawn java&#39;</span>,
+  path: <span class=" -Color -Color-Green">&#39;java&#39;</span>,
+  spawnargs: [
+    <span class=" -Color -Color-Green">&#39;-jar&#39;</span>,
+    <span class=" -Color -Color-Green">&#39;-Djava.awt.headless=true&#39;</span>,
+    <span class=" -Color -Color-Green">&#39;--add-opens=java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=&quot;ALL-UNNAMED&quot;&#39;</span>,
+    <span class=" -Color -Color-Green">&#39;/opt/app/book/node_modules/plantuml/vendor/plantuml.jar&#39;</span>,
+    <span class=" -Color -Color-Green">&#39;-tsvg&#39;</span>,
+    <span class=" -Color -Color-Green">&#39;-pipe&#39;</span>
+  ]
+}
+</pre></div>
+</div>
+<img alt="_images/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.svg" src="_images/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createWallet</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@affinidi/wallet-node-sdk&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">walletFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createWallet</span><span class="p">(</span><span class="s1">&#39;AffinityCore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets setup wallets</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;your key&gt;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;prod&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">accessApiKey</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">issuerWallet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletFactory</span><span class="p">.</span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;P@55word!!!&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">holderWallet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletFactory</span><span class="p">.</span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;P@55word!!!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ReferenceError: accessApiKey is not defined
+    at evalmachine.&lt;anonymous&gt;:5:5
+    at evalmachine.&lt;anonymous&gt;:13:3
+    at sigintHandlersWrap (node:vm:268:12)
+    at Script.runInThisContext (node:vm:127:14)
+    at Object.runInThisContext (node:vm:305:38)
+    at Object.execute (/usr/local/lib/node_modules/tslab/dist/executor.js:162:38)
+    at JupyterHandlerImpl.handleExecuteImpl (/usr/local/lib/node_modules/tslab/dist/jupyter.js:219:38)
+    at /usr/local/lib/node_modules/tslab/dist/jupyter.js:177:57
+    at async JupyterHandlerImpl.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:177:21)
+    at async ZmqServer.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:375:25)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="offer-request">
+<h1>Offer Request<a class="headerlink" href="#offer-request" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>It is holder agnostic</p></li>
+<li><p>it help toidentify issuer</p></li>
+<li><p>it is share information about credentials that we want to issue
+What we want to offer</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">offeredCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;ContentLike&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">renderInfo</span><span class="o">:</span><span class="p">{},</span>
+<span class="w">      </span><span class="p">}]</span>
+<span class="w">    </span>
+<span class="w">     </span><span class="kd">const</span><span class="w"> </span><span class="nx">callbackUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://vp-service.com/callback&#39;</span>
+<span class="w">     </span>
+<span class="w">     </span><span class="kd">const</span><span class="w"> </span><span class="nx">credentialOfferRequestToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">issuerWallet</span><span class="p">.</span><span class="nx">generateCredentialOfferRequestToken</span><span class="p">(</span>
+<span class="w">      </span><span class="nx">offeredCredentials</span><span class="p">,</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">callbackUrl</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">     </span><span class="nx">credentialOfferRequestToken</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpbnRlcmFjdGlvblRva2VuIjp7ImNhbGxiYWNrVVJMIjoiaHR0cHM6Ly92cC1zZXJ2aWNlLmNvbS9jYWxsYmFjayIsIm9mZmVyZWRDcmVkZW50aWFscyI6W3sidHlwZSI6IkNvbnRlbnRMaWtlIiwicmVuZGVySW5mbyI6e319XX0sImV4cCI6MTY2MjgzNzg5OTQ0NSwidHlwIjoiY3JlZGVudGlhbE9mZmVyUmVxdWVzdCIsImp0aSI6IjNmYTdhN2FkMTFiNWQ0YWMiLCJpc3MiOiJkaWQ6ZWxlbTpFaURVYldBUXNYOVk1S21aOVloYlJ1N0NyNGp5Y2k0WnVmdmVCM0FDUVlONzdBO2VsZW06aW5pdGlhbC1zdGF0ZT1leUp3Y205MFpXTjBaV1FpT2lKbGVVcDJZMGRXZVZsWVVuQmlNalJwVDJsS2FtTnRWbWhrUjFWcFRFTktjbUZYVVdsUGFVbHFZMGhLY0dKWFJubGxVMGx6U1cxR2MxcDVTVFpKYTFaVVRXcFZNbE41U2praUxDSndZWGxzYjJGa0lqb2laWGxLUVZreU9YVmtSMVkwWkVOSk5rbHRhREJrU0VKNlQyazRkbVI2VG5CYVF6VjJZMjFqZG1NeVZtcGtXRXB3WkVocmRtUnFTV2xNUTBwM1pGZEtjMkZYVGt4YVdHdHBUMngwTjBsdGJHdEphbTlwU1ROQ2VXRlhNV2hqYm10cFRFTktNV015Um01YVUwazJTVzVPY0ZveU5YQmliV05wVEVOS01HVllRbXhKYW05cFZUSldhbU5FU1RGT2JYTjRWbTFXZVdGWFduQlpNa1l3WVZjNWRWTXlWalZOYWtGNFQwTkpjMGx1UWpGWmJYaHdXVEIwYkdWVmFHeGxRMGsyU1dwQmVVMUVXWHBPVkdjeFRrZFpNbGxxWkd4UFZGRXlUakpGTlUxWFJURlplbEV6VDBkVk0wNVhSbXRhYlVWM1dsUm5kMXB0V21oTlZGbDZUa1JuZDFsWFdtbFBSRlUxVFhwak5FNXFiRzFPVkZWNlRWUlNhRTE1U2psTVNITnBZVmRSYVU5cFNXcGpiVlpxWWpOYWJHTnVhMmxNUTBveFl6SkdibHBUU1RaSmJrcHNXVEk1TWxwWVNqVkphWGRwWkVoc2QxcFRTVFpKYkU1c1dUTkJlVTVVV25KTlZscHNZMjFzYldGWFRtaGtSMngyWW10MGJHVlVTWGROVkdkcFRFTktkMlJYU25OaFYwNU1XbGhzU1ZwWVoybFBhVWwzVFcxRk5VOUhXWGRPYW1kNVdYcFZkMXBYV21oWmVtczFUbnByZUU1RVNtcE5lbEV4VFRKUk5FNHlSVE5hVkVadFdXMUZlVTlIVVRKUFYwa3hUbnBTYUU1WFZURk5NbFpzVFVSSk0xcEVVWGRhUjBacFRWUkJhV1pXTUhOSmJVWXhaRWRvYkdKdVVuQlpNa1l3WVZjNWRVbHFjR0pKYVU1M1kyMXNkRmxZU2pWSmJEQnpTVzFHZW1NeVZubGtSMngyWW1zeGJHUkhhSFphUTBrMlYzbEphbU5JU25CaVYwWjVaVk5LWkdaUklpd2ljMmxuYm1GMGRYSmxJam9pVmxCRWJrdElSVUp2T1RaRFUwNUJTRnBqTjJGcU5rNWhkbWQwTXpsTlF6QjBjRlowY20xWFprSTFXbU5LV1VsVWVHMVRUREZwUVMwMVFWOVdaVEZmVWpSWU5EUm9SbGg2VEdoWVEzQXdkRmN6ZEhvelJuY2lmUSIsImtpZCI6ImRpZDplbGVtOkVpRFViV0FRc1g5WTVLbVo5WWhiUnU3Q3I0anljaTRadWZ2ZUIzQUNRWU43N0EjcHJpbWFyeSJ9.4d3869db8f7c44c607cbedb9a66314ca68d38e7a894a73cbfe191b0413575c842c38986daef52f2906d01bfc584c8046dd2114cc86038987239a283a07058799
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">jwt_decode</span><span class="p">(</span><span class="nx">credentialOfferRequestToken</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  interactionToken: {
+    callbackURL: <span class=" -Color -Color-Green">&#39;https://vp-service.com/callback&#39;</span>,
+    offeredCredentials: [ <span class=" -Color -Color-Cyan">[Object]</span> ]
+  },
+  exp: <span class=" -Color -Color-Yellow">1662837899445</span>,
+  typ: <span class=" -Color -Color-Green">&#39;credentialOfferRequest&#39;</span>,
+  jti: <span class=" -Color -Color-Green">&#39;3fa7a7ad11b5d4ac&#39;</span>,
+  iss: <span class=" -Color -Color-Green">&#39;did:elem:EiDUbWAQsX9Y5KmZ9YhbRu7Cr4jyci4ZufveB3ACQYN77A;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1EWXpOVGcxTkdZMllqZGxPVFEyTjJFNU1XRTFZelEzT0dVM05XRmtabUV3WlRnd1ptWmhNVFl6TkRnd1lXWmlPRFU1TXpjNE5qbG1OVFV6TVRSaE15SjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TW1FNU9HWXdOamd5WXpVd1pXWmhZems1TnpreE5ESmpNelExTTJRNE4yRTNaVEZtWW1FeU9HUTJPV0kxTnpSaE5XVTFNMlZsTURJM1pEUXdaR0ZpTVRBaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiVlBEbktIRUJvOTZDU05BSFpjN2FqNk5hdmd0MzlNQzB0cFZ0cm1XZkI1WmNKWUlUeG1TTDFpQS01QV9WZTFfUjRYNDRoRlh6TGhYQ3AwdFczdHozRncifQ&#39;</span>,
+  kid: <span class=" -Color -Color-Green">&#39;did:elem:EiDUbWAQsX9Y5KmZ9YhbRu7Cr4jyci4ZufveB3ACQYN77A#primary&#39;</span>
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="offer-response">
+<h1>Offer Response<a class="headerlink" href="#offer-response" title="Permalink to this heading">#</a></h1>
+<p>Lets holder to send response</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">credentialOfferResponseToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">holderWallet</span><span class="p">.</span><span class="nx">createCredentialOfferResponseToken</span><span class="p">(</span>
+<span class="w">      </span><span class="nx">credentialOfferRequestToken</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="nx">credentialOfferResponseToken</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpbnRlcmFjdGlvblRva2VuIjp7ImNhbGxiYWNrVVJMIjoiaHR0cHM6Ly92cC1zZXJ2aWNlLmNvbS9jYWxsYmFjayIsInNlbGVjdGVkQ3JlZGVudGlhbHMiOlt7InR5cGUiOiJDb250ZW50TGlrZSIsInJlbmRlckluZm8iOnt9fV19LCJleHAiOjE2NjI4MzkyMjk2NjcsInR5cCI6ImNyZWRlbnRpYWxPZmZlclJlc3BvbnNlIiwianRpIjoiM2ZhN2E3YWQxMWI1ZDRhYyIsImF1ZCI6ImRpZDplbGVtOkVpRFViV0FRc1g5WTVLbVo5WWhiUnU3Q3I0anljaTRadWZ2ZUIzQUNRWU43N0E7ZWxlbTppbml0aWFsLXN0YXRlPWV5SndjbTkwWldOMFpXUWlPaUpsZVVwMlkwZFdlVmxZVW5CaU1qUnBUMmxLYW1OdFZtaGtSMVZwVEVOS2NtRlhVV2xQYVVscVkwaEtjR0pYUm5sbFUwbHpTVzFHYzFwNVNUWkphMVpVVFdwVk1sTjVTamtpTENKd1lYbHNiMkZrSWpvaVpYbEtRVmt5T1hWa1IxWTBaRU5KTmtsdGFEQmtTRUo2VDJrNGRtUjZUbkJhUXpWMlkyMWpkbU15Vm1wa1dFcHdaRWhyZG1ScVNXbE1RMHAzWkZkS2MyRlhUa3hhV0d0cFQyeDBOMGx0Ykd0SmFtOXBTVE5DZVdGWE1XaGpibXRwVEVOS01XTXlSbTVhVTBrMlNXNU9jRm95TlhCaWJXTnBURU5LTUdWWVFteEphbTlwVlRKV2FtTkVTVEZPYlhONFZtMVdlV0ZYV25CWk1rWXdZVmM1ZFZNeVZqVk5ha0Y0VDBOSmMwbHVRakZaYlhod1dUQjBiR1ZWYUd4bFEwazJTV3BCZVUxRVdYcE9WR2N4VGtkWk1sbHFaR3hQVkZFeVRqSkZOVTFYUlRGWmVsRXpUMGRWTTA1WFJtdGFiVVYzV2xSbmQxcHRXbWhOVkZsNlRrUm5kMWxYV21sUFJGVTFUWHBqTkU1cWJHMU9WRlY2VFZSU2FFMTVTamxNU0hOcFlWZFJhVTlwU1dwamJWWnFZak5hYkdOdWEybE1RMG94WXpKR2JscFRTVFpKYmtwc1dUSTVNbHBZU2pWSmFYZHBaRWhzZDFwVFNUWkpiRTVzV1ROQmVVNVVXbkpOVmxwc1kyMXNiV0ZYVG1oa1IyeDJZbXQwYkdWVVNYZE5WR2RwVEVOS2QyUlhTbk5oVjA1TVdsaHNTVnBZWjJsUGFVbDNUVzFGTlU5SFdYZE9hbWQ1V1hwVmQxcFhXbWhaZW1zMVRucHJlRTVFU21wTmVsRXhUVEpSTkU0eVJUTmFWRVp0V1cxRmVVOUhVVEpQVjBreFRucFNhRTVYVlRGTk1sWnNUVVJKTTFwRVVYZGFSMFpwVFZSQmFXWldNSE5KYlVZeFpFZG9iR0p1VW5CWk1rWXdZVmM1ZFVscWNHSkphVTUzWTIxc2RGbFlTalZKYkRCelNXMUdlbU15Vm5sa1IyeDJZbXN4YkdSSGFIWmFRMGsyVjNsSmFtTklTbkJpVjBaNVpWTktaR1pSSWl3aWMybG5ibUYwZFhKbElqb2lWbEJFYmt0SVJVSnZPVFpEVTA1QlNGcGpOMkZxTms1aGRtZDBNemxOUXpCMGNGWjBjbTFYWmtJMVdtTktXVWxVZUcxVFRERnBRUzAxUVY5V1pURmZValJZTkRSb1JsaDZUR2hZUTNBd2RGY3pkSG96Um5jaWZRIiwiaXNzIjoiZGlkOmVsZW06RWlBdG1Oa3hPaFdPaFRDSXhPUnk2MkxwRnJOWlF0Vk03ZzZvRGF4bUREbHFtQTtlbGVtOmluaXRpYWwtc3RhdGU9ZXlKd2NtOTBaV04wWldRaU9pSmxlVXAyWTBkV2VWbFlVbkJpTWpScFQybEthbU50Vm1oa1IxVnBURU5LY21GWFVXbFBhVWxxWTBoS2NHSlhSbmxsVTBselNXMUdjMXA1U1RaSmExWlVUV3BWTWxONVNqa2lMQ0p3WVhsc2IyRmtJam9pWlhsS1FWa3lPWFZrUjFZMFpFTkpOa2x0YURCa1NFSjZUMms0ZG1SNlRuQmFRelYyWTIxamRtTXlWbXBrV0Vwd1pFaHJkbVJxU1dsTVEwcDNaRmRLYzJGWFRreGFXR3RwVDJ4ME4wbHRiR3RKYW05cFNUTkNlV0ZYTVdoamJtdHBURU5LTVdNeVJtNWFVMGsyU1c1T2NGb3lOWEJpYldOcFRFTktNR1ZZUW14SmFtOXBWVEpXYW1ORVNURk9iWE40Vm0xV2VXRlhXbkJaTWtZd1lWYzVkVk15VmpWTmFrRjRUME5KYzBsdVFqRlpiWGh3V1RCMGJHVlZhR3hsUTBrMlNXcEJlVTVYVlRGTlJFa3pUVzFGTTA5VVFUVlBWMVp0VFZSTk5GcFhSWHBQVkVGNFdXcEplRTVVU1RCT2FrRXdXbGROTVZwRVRYaFpha1pxV1ZkSk5GbHFiR2xhYW10NVdtcFdhazFFWTNoTlZFVjVXbFJSTkUxRFNqbE1TSE5wWVZkUmFVOXBTV3BqYlZacVlqTmFiR051YTJsTVEwb3hZekpHYmxwVFNUWkpia3BzV1RJNU1scFlTalZKYVhkcFpFaHNkMXBUU1RaSmJFNXNXVE5CZVU1VVduSk5WbHBzWTIxc2JXRlhUbWhrUjJ4MlltdDBiR1ZVU1hkTlZHZHBURU5LZDJSWFNuTmhWMDVNV2xoc1NWcFlaMmxQYVVsM1RYcEplRTVYVlhsWlYxWnRXVEpLYkUxcVFtcFpWMUV4V1dwU2JWbDZWbTFQUjFKc1QwUlJkMDFVU1RKT2JVbDNUMGRSZWxsWFdUQk9la3BzVFdwRk5VNUVSWGhaZWtwdFQxUkdhRmxxVlRGWmFtTXlUVmRWYVdaV01ITkpiVVl4WkVkb2JHSnVVbkJaTWtZd1lWYzVkVWxxY0dKSmFVNTNZMjFzZEZsWVNqVkpiREJ6U1cxR2VtTXlWbmxrUjJ4Mlltc3hiR1JIYUhaYVEwazJWM2xKYW1OSVNuQmlWMFo1WlZOS1pHWlJJaXdpYzJsbmJtRjBkWEpsSWpvaWNWbzNjVEY1V2tkZmVsTmtjbUpxWjJGWVpXb3dWVEZCZVZGdVQyTTBZamxYTFZKaE1VSlRSSE4wT1hoSVVFeDJNMXBzTjB3eExWWjNkVVJWWmkxWmJqUmhWSGRpVEY5T1NWTlZWa3BhT0hkVFVVWkVSR2NpZlEiLCJraWQiOiJkaWQ6ZWxlbTpFaUF0bU5reE9oV09oVENJeE9SeTYyTHBGck5aUXRWTTdnNm9EYXhtRERscW1BI3ByaW1hcnkifQ.d91b4a54959469c54afe091fb6316c12f148abb34d8645e2d96fa3e08e7d4b57530af9adadae5419ff99491dea4c3e47c5b418ac3cb5fae1947939d44b313350
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">jwt_decode</span><span class="p">(</span><span class="nx">credentialOfferResponseToken</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  interactionToken: {
+    callbackURL: <span class=" -Color -Color-Green">&#39;https://vp-service.com/callback&#39;</span>,
+    selectedCredentials: [ <span class=" -Color -Color-Cyan">[Object]</span> ]
+  },
+  exp: <span class=" -Color -Color-Yellow">1662837898338</span>,
+  typ: <span class=" -Color -Color-Green">&#39;credentialOfferResponse&#39;</span>,
+  jti: <span class=" -Color -Color-Green">&#39;3fa7a7ad11b5d4ac&#39;</span>,
+  aud: <span class=" -Color -Color-Green">&#39;did:elem:EiDUbWAQsX9Y5KmZ9YhbRu7Cr4jyci4ZufveB3ACQYN77A;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1EWXpOVGcxTkdZMllqZGxPVFEyTjJFNU1XRTFZelEzT0dVM05XRmtabUV3WlRnd1ptWmhNVFl6TkRnd1lXWmlPRFU1TXpjNE5qbG1OVFV6TVRSaE15SjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TW1FNU9HWXdOamd5WXpVd1pXWmhZems1TnpreE5ESmpNelExTTJRNE4yRTNaVEZtWW1FeU9HUTJPV0kxTnpSaE5XVTFNMlZsTURJM1pEUXdaR0ZpTVRBaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiVlBEbktIRUJvOTZDU05BSFpjN2FqNk5hdmd0MzlNQzB0cFZ0cm1XZkI1WmNKWUlUeG1TTDFpQS01QV9WZTFfUjRYNDRoRlh6TGhYQ3AwdFczdHozRncifQ&#39;</span>,
+  iss: <span class=" -Color -Color-Green">&#39;did:elem:EiAtmNkxOhWOhTCIxORy62LpFrNZQtVM7g6oDaxmDDlqmA;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU5XVTFNREkzTW1FM09UQTVPV1ZtTVRNNFpXRXpPVEF4WWpJeE5USTBOakEwWldNMVpETXhZakZqWVdJNFlqbGlaamt5WmpWak1EY3hNVEV5WlRRNE1DSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpJeE5XVXlZV1ZtWTJKbE1qQmpZV1ExWWpSbVl6Vm1PR1JsT0RRd01USTJObUl3T0dRellXWTBOekpsTWpFNU5ERXhZekptT1RGaFlqVTFZamMyTVdVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoicVo3cTF5WkdfelNkcmJqZ2FYZWowVTFBeVFuT2M0YjlXLVJhMUJTRHN0OXhIUEx2M1psN0wxLVZ3dURVZi1ZbjRhVHdiTF9OSVNVVkpaOHdTUUZERGcifQ&#39;</span>,
+  kid: <span class=" -Color -Color-Green">&#39;did:elem:EiAtmNkxOhWOhTCIxORy62LpFrNZQtVM7g6oDaxmDDlqmA#primary&#39;</span>
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="verification-of-response">
+<h1>Verification of Response<a class="headerlink" href="#verification-of-response" title="Permalink to this heading">#</a></h1>
+<p>Now issuer could validate a holder</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">issuerWallet</span><span class="p">.</span><span class="nx">verifyCredentialOfferResponseToken</span><span class="p">(</span>
+<span class="w">      </span><span class="nx">credentialOfferResponseToken</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">credentialOfferRequestToken</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="nx">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  isValid: <span class=" -Color -Color-Yellow">true</span>,
+  did: <span class=" -Color -Color-Green">&#39;did:elem:EiAtmNkxOhWOhTCIxORy62LpFrNZQtVM7g6oDaxmDDlqmA;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU5XVTFNREkzTW1FM09UQTVPV1ZtTVRNNFpXRXpPVEF4WWpJeE5USTBOakEwWldNMVpETXhZakZqWVdJNFlqbGlaamt5WmpWak1EY3hNVEV5WlRRNE1DSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXpJeE5XVXlZV1ZtWTJKbE1qQmpZV1ExWWpSbVl6Vm1PR1JsT0RRd01USTJObUl3T0dRellXWTBOekpsTWpFNU5ERXhZekptT1RGaFlqVTFZamMyTVdVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoicVo3cTF5WkdfelNkcmJqZ2FYZWowVTFBeVFuT2M0YjlXLVJhMUJTRHN0OXhIUEx2M1psN0wxLVZ3dURVZi1ZbjRhVHdiTF9OSVNVVkpaOHdTUUZERGcifQ&#39;</span>,
+  nonce: <span class=" -Color -Color-Green">&#39;3fa7a7ad11b5d4ac&#39;</span>,
+  selectedCredentials: [ { type: <span class=" -Color -Color-Green">&#39;ContentLike&#39;</span>, renderInfo: {} } ],
+  errors: []
+}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="issue-vc-for-holder">
+<h2>Issue VC for Holder<a class="headerlink" href="#issue-vc-for-holder" title="Permalink to this heading">#</a></h2>
+<p>Now we could issue a credential for holder</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">jsonSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://schema.affinidi.com/ContentLikeV1-0.json&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">jsonContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://schema.affinidi.com/ContentLikeV1-0.jsonld&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`claimId:</span><span class="si">${</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">36</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">unsignedVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s1">&#39;@context&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;https://www.w3.org/2018/credentials/v1&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">jsonContext</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">id</span><span class="p">,</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;VerifiableCredential&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ContentLike&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">holder</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;placeholder&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">credentialSubject</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s1">&#39;@type&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;VerifiableCredential&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ContentLike&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://www.youtube.com/watch?v=owbkzvLhblk&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">like</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">score</span><span class="o">:</span><span class="w"> </span><span class="kt">10</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">credentialSchema</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w">  </span><span class="kt">jsonSchema</span><span class="p">,</span>
+<span class="w">      </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;JsonSchemaValidator2018&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">issuanceDate</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">(),</span>
+<span class="w">    </span><span class="nx">expirationDate</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2065-09-10T00:00:00.000Z&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span><span class="w">   </span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signedCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">issuerWallet</span><span class="p">.</span><span class="nx">signCredentials</span><span class="p">(</span>
+<span class="w">      </span><span class="nx">credentialOfferResponseToken</span><span class="p">,</span>
+<span class="w">      </span><span class="p">[</span><span class="nx">unsignedVC</span><span class="p">],</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="nx">signedCredentials</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[
+  {
+    <span class=" -Color -Color-Green">&#39;@context&#39;</span>: [
+      <span class=" -Color -Color-Green">&#39;https://www.w3.org/2018/credentials/v1&#39;</span>,
+      <span class=" -Color -Color-Green">&#39;https://schema.affinidi.com/ContentLikeV1-0.jsonld&#39;</span>
+    ],
+    id: <span class=" -Color -Color-Green">&#39;claimId:3b1426be69d03bc1&#39;</span>,
+    type: [ <span class=" -Color -Color-Green">&#39;VerifiableCredential&#39;</span>, <span class=" -Color -Color-Green">&#39;ContentLike&#39;</span> ],
+    holder: { id: <span class=" -Color -Color-Green">&#39;did:elem:EiAtmNkxOhWOhTCIxORy62LpFrNZQtVM7g6oDaxmDDlqmA&#39;</span> },
+    credentialSubject: { data: <span class=" -Color -Color-Cyan">[Object]</span> },
+    issuanceDate: <span class=" -Color -Color-Green">&#39;2022-09-10T19:21:57.743Z&#39;</span>,
+    expirationDate: <span class=" -Color -Color-Green">&#39;2065-09-10T00:00:00.000Z&#39;</span>,
+    issuer: <span class=" -Color -Color-Green">&#39;did:elem:EiDUbWAQsX9Y5KmZ9YhbRu7Cr4jyci4ZufveB3ACQYN77A;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1EWXpOVGcxTkdZMllqZGxPVFEyTjJFNU1XRTFZelEzT0dVM05XRmtabUV3WlRnd1ptWmhNVFl6TkRnd1lXWmlPRFU1TXpjNE5qbG1OVFV6TVRSaE15SjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TW1FNU9HWXdOamd5WXpVd1pXWmhZems1TnpreE5ESmpNelExTTJRNE4yRTNaVEZtWW1FeU9HUTJPV0kxTnpSaE5XVTFNMlZsTURJM1pEUXdaR0ZpTVRBaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiVlBEbktIRUJvOTZDU05BSFpjN2FqNk5hdmd0MzlNQzB0cFZ0cm1XZkI1WmNKWUlUeG1TTDFpQS01QV9WZTFfUjRYNDRoRlh6TGhYQ3AwdFczdHozRncifQ&#39;</span>,
+    proof: {
+      type: <span class=" -Color -Color-Green">&#39;EcdsaSecp256k1Signature2019&#39;</span>,
+      created: <span class=" -Color -Color-Green">&#39;2022-09-10T19:21:57Z&#39;</span>,
+      verificationMethod: <span class=" -Color -Color-Green">&#39;did:elem:EiDUbWAQsX9Y5KmZ9YhbRu7Cr4jyci4ZufveB3ACQYN77A#primary&#39;</span>,
+      proofPurpose: <span class=" -Color -Color-Green">&#39;assertionMethod&#39;</span>,
+      jws: <span class=" -Color -Color-Green">&#39;eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..XwB9-DL6CxMfjFUX_ItFduAUafvf-gECiNmBmqSCjA1WJJoZCFKGC1RMxf0GWV8YPpDUra7CJNItf5ZrAdqSGQ&#39;</span>
+    }
+  }
+]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "tslab"
+        },
+        kernelOptions: {
+            name: "tslab",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'tslab'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="create-revocable-vc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="share-vp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Howto Share VC with Verifier</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Howto offer VC to Holder</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#offer-request">Offer Request</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#offer-response">Offer Response</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#verification-of-response">Verification of Response</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#issue-vc-for-holder">Issue VC for Holder</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Volodymyr Pavlyshyn
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

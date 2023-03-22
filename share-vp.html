@@ -1,0 +1,867 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Howto Share VC with Verifier &#8212; Self sovereign identity with Affinidi SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'share-vp';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Presentation Exchange" href="pex-vp.html" />
+    <link rel="prev" title="Howto offer VC to Holder" href="request-for-offer.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Self sovereign identity with Affinidi SDK</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Self Severing Identity with Affinidi SDK
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Wallet Internals</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="request-for-offer.html">Howto offer VC to Holder</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Howto Share VC with Verifier</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="pex-vp.html">Presentation Exchange</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="credential-storage.html">Affinidi Vault - Credential Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-managment.html">Affinidi Vault - Custodial Wallet</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book/issues/new?title=Issue%20on%20page%20%2Fshare-vp.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/share-vp.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Howto Share VC with Verifier</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Howto Share VC with Verifier</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#flow">Flow</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#verifier-create-presentation-challenge">Verifier create Presentation Challenge</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lest-prepare-credential">Lest prepare credential</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-verifiable-presentation">Create Verifiable Presentation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;plantuml-encoder&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tslab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;tslab&quot;</span><span class="p">);</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">jwt_decode</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;jwt-decode&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="howto-share-vc-with-verifier">
+<h1>Howto Share VC with Verifier<a class="headerlink" href="#howto-share-vc-with-verifier" title="Permalink to this heading">#</a></h1>
+<p>We already know about classical triangle of roles.
+It is <strong>user centric</strong></p>
+<ul class="simple">
+<li><p>holder - user that own a VCs</p></li>
+<li><p>issuer - party that issue a VC</p></li>
+<li><p>verifier - could aks holder for a VCs to Verify</p></li>
+</ul>
+<p>We need a <strong>protocol</strong> that could proof the identity and <strong>autorship</strong> for every role.
+As we know our identities is our keypairs so we should sign some entities to proof our identity
+Affinidi SDK offer transport agnostic protocols for excanges based on JWT tokens</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">encodedTriangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">@startuml</span>
+<span class="sb">!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml</span>
+
+<span class="sb">Person_Ext(issuer, &quot;Issuer&quot;)</span>
+<span class="sb">Boundary(b1,&quot;Verification&quot;) {</span>
+<span class="sb">Person(holder, &quot;Holder&quot;, $sprite=&quot;person2&quot;)</span>
+<span class="sb">Person(verifier, &quot;Verifier&quot;)</span>
+<span class="sb">}</span>
+
+<span class="sb">Rel_L(issuer, holder, &quot;issue VC&quot;, &quot;Request for offer&quot;)</span>
+<span class="sb">Rel(holder, issuer, &quot;claim&quot;, &quot;Response for offer&quot;)</span>
+<span class="sb">Rel_R(verifier, holder, &quot;ask for VCs&quot;, &quot;Request for sharing (Presentation Challenge)&quot;)</span>
+<span class="sb">Rel(holder, verifier, &quot;issue signed VP&quot;, &quot;VP&quot;, $sprite = &quot;&amp;envelope-closed&quot;)</span>
+
+<span class="sb">@enduml</span>
+<span class="sb">`</span><span class="p">)</span>
+<span class="w"> </span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">urlTriangle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;http://www.plantuml.com/plantuml/svg/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">encodedTriangle</span>
+<span class="nx">tslab</span><span class="p">.</span><span class="nx">display</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="sb">`&lt;img src=&quot;</span><span class="si">${</span><span class="nx">urlTriangle</span><span class="si">}</span><span class="sb">&quot;/&gt;`</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/NP5HIyCm58NVyojY4EbWMr5y6Wo6HL2OK0RsjMJDRHjCavYRJ4NyxwPPAMCluN9pldDFRiWEFNS-38hSIDse883stblSvBdZN-jE-ZuS0u9hZFQW_RenGsuLroEpGY-KFER5uweSM-zl-tpWwC75Lbr4WaiDRcr7VrA2GwFhvs-VISG0RadPQohOWZoPe0LtFzdnViagSBAL3VVIQBQWlnEQzKQ9XBsaWYtfBLedFMoPJOg7w3HfJyaZgQkfZ9T_X1n0rVivmMoP6hGgeYaxm6S0zBGrZfgsJMJ4vlbp_4PnEPm9j4OZN2FruIB8F8lZHn9M1LwFmvuxgJkQbGumxZljW1OzLmfq1ukh91UlF3y0PQT1qAeSZTCvhOXkARi3VG9bBAmQPH14D2Cxq6Byddy0"/></div></div>
+</div>
+</section>
+<section id="flow">
+<h1>Flow<a class="headerlink" href="#flow" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">encodedFlow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="p">.</span><span class="nx">encode</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">title: Affinidi: Share VC Flow</span>
+<span class="sb">participant &quot;Verifier Service&quot; as verifier</span>
+<span class="sb">actor  &quot;Verifier client , sdk&quot; as client</span>
+<span class="sb">actor &quot;SDK Holder&quot; as holder</span>
+<span class="sb">database &quot;Wallet storage&quot; as wallet</span>
+<span class="sb">participant &quot;Registry&quot; as registry</span>
+
+
+<span class="sb">client -&gt; verifier: BuildCredentialRequest (credentialRequirements)</span>
+<span class="sb">verifier -&gt; client: 200 [credentialShareRequest]</span>
+
+<span class="sb">note over client, verifier: credentialShareRequest signing and credentialShareRequestToken generated</span>
+<span class="sb">client -&gt; holder: some way deliver (credentialShareRequestToken)</span>
+<span class="sb">note over client, verifier: deliver way could be as QR code which posted on web, as PN in internal App logic implementation, etc</span>
+<span class="sb">note over client, verifier: Generating CredentialShareResponseToken based on the credentialShareRequestToken</span>
+<span class="sb">note over client, verifier</span>
+<span class="sb">Verification of the Verifier signature on the credentialShareRequestToken</span>
+<span class="sb">1. Resolve Verifier DID (get publicKey)</span>
+<span class="sb">2. Verify Verifier signature (using publicKey)</span>
+<span class="sb">end note</span>
+<span class="sb">holder -&gt; registry: resolveDid(VerifierDid)</span>
+<span class="sb">registry -&gt; holder: 200 [DidDocument]</span>
+<span class="sb">holder -&gt; wallet: getCredentials(credentialShareRequestToken)</span>
+<span class="sb">wallet -&gt; holder: 200 [credentials]</span>
+
+<span class="sb">holder -&gt; holder: Generating VP with credentials inside</span>
+<span class="sb">holder -&gt; client: some way to call back (VP)</span>
+
+<span class="sb">note over verifier, holder</span>
+<span class="sb">Verifier validate credentials:</span>
+<span class="sb">1. Resolve Holder DID (get publicKey)</span>
+<span class="sb">2. Verify Holder signature on JWT (using publicKey)</span>
+<span class="sb">3. Validate that Holder its a Subject in credentials(optional)</span>
+<span class="sb">4. Resolve Issuer DID(get publicKey)</span>
+<span class="sb">5. Verify Issuer signature on each credentials (using publicKey)</span>
+
+<span class="sb">Executing internall App logic</span>
+<span class="sb">end note</span>
+<span class="sb">client -&gt; registry: resolveDid(HolderDid)</span>
+<span class="sb">registry -&gt; client: 200 [DidDocument]</span>
+<span class="sb">client -&gt; registry: resolveDid(IssuerDid)</span>
+<span class="sb">registry -&gt; client: 200 [DidDocument]</span>
+<span class="sb">client -&gt; client : do VP Validation</span>
+<span class="sb">client -&gt; client : do VC Validation</span>
+
+<span class="sb">`</span><span class="p">)</span>
+<span class="w"> </span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">urlFlow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;http://www.plantuml.com/plantuml/svg/&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">encodedFlow</span>
+<span class="nx">tslab</span><span class="p">.</span><span class="nx">display</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="sb">`&lt;img src=&quot;</span><span class="si">${</span><span class="nx">urlFlow</span><span class="si">}</span><span class="sb">&quot;/&gt;`</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/dLHDRzim3BthLn0vEK1MTDrsyQ50b-oZAp1aJP4UXXuKcR6vAfOdoSdoxoTPTYotQJeCy46MIBv7yf7CafMOmjLwJILbbCAYu1fXEONFKkrOnRKbGHKlBOoMg6bDg661Uai2Hy0DRDjBneLL6Y8h8GcTsmHCzjYOXelMSBIOtS1N9JFKpMFH75d6BLznWp2wvrAY1UECUHwmTitLaDGjvcIitZS6klrXZBNeRouF35FuM9FCfXepzq9StkBl6es5H0okIEF6_Panwpnzb10lXOlpS_ZPEpJbQWCzC5OgYw2sX-md4Vfn9p2KbrJcmCli1PCxzOWbv5YYvXQpABLGj1ICsg2hpXuobEJHanEHnYTPTX5yDA5gcS4AVMb_tBhVpA4K90geb75CG9MmmzN4ly-_0vNkiwXBBk6gga2gd0JGff9DGRabLKu0hJX9u4l8qvTa-ZG9KwdIOAY7Lqd3m1Pugd0dm5ZGgcYOWLeteGxwzOtXjdRJy0yWRy_0qLDo6mMONSyWoPs6gtebITpWVimkpiBx_XXEKXkVTcIEJXIUFmkTzZtlD9wwKmCueopfWhdpc7KMiK8QsRhNcHArRyP3536CLUeKPlkAczCI2ZxF47eVuwQXX-YCekOkvx0ZMqHLDKu-Xh8usMxg3WAt2eI3TjqNZv0iv-Duvhg-JhfjSgZnbajogoNkeKdZfeLDz4hBMgE1CBxTtntfspldqq7QWjlEbQm13ejwzGk5zGCJyKbKvNN8vPYzxubT6rC7OazvVJZmQcq6l92BOMsVasIV_g2ecsPqSniDRg-zVjySrLv8xPdo1WjpeBnNueLi_YjUUt9RJ7bzjIrmHNt9PXhRiBy0"/></div></div>
+</div>
+<p>Lets import SDK</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createWallet</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@affinidi/wallet-node-sdk&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">walletFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createWallet</span><span class="p">(</span><span class="s1">&#39;AffinityCore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets setup wallets</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;your key use affinidi cli to generate a key&gt;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;prod&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">accessApiKey</span><span class="o">:</span><span class="kt">accessApiKey</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">verifierWallet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletFactory</span><span class="p">.</span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;P@55word!!!&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">holderWallet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletFactory</span><span class="p">.</span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;P@55word!!!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COM-7: API KEY not found.
+    at executeByOptions (/opt/app/book/node_modules/@affinidi/tools-openapi/dist/helpers/client.js:62:19)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.AnchorDid (/opt/app/book/node_modules/@affinidi/tools-openapi/dist/helpers/mapFunctions.js:17:28)
+    at async anchorDid (/opt/app/book/node_modules/@affinidi/wallet-core-sdk/dist/services/anchoringHandler.js:51:22)
+    at async register (/opt/app/book/node_modules/@affinidi/wallet-core-sdk/dist/services/registeringHandler.js:24:26)
+    at async Function.createWallet (/opt/app/book/node_modules/@affinidi/wallet-core-sdk/dist/CommonNetworkMember/NetworkMemberWithoutCognito.js:45:26)
+    at async evalmachine.&lt;anonymous&gt;:8:24
+    at async Object.execute (/usr/local/lib/node_modules/tslab/dist/executor.js:175:17)
+    at async JupyterHandlerImpl.handleExecuteImpl (/usr/local/lib/node_modules/tslab/dist/jupyter.js:219:18)
+    at async JupyterHandlerImpl.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:177:21) {
+  _isSdkError: <span class=" -Color -Color-Yellow">true</span>,
+  _code: <span class=" -Color -Color-Green">&#39;COM-7&#39;</span>,
+  _context: {},
+  _originalError: {
+    serviceName: <span class=" -Color -Color-Green">&#39;REG&#39;</span>,
+    code: <span class=" -Color -Color-Green">&#39;COM-7&#39;</span>,
+    message: <span class=" -Color -Color-Green">&#39;API KEY not found.&#39;</span>,
+    context: {},
+    httpStatusCode: <span class=" -Color -Color-Yellow">401</span>,
+    endpointUrl: <span class=" -Color -Color-Green">&#39;/api/v1/did/anchor-did&#39;</span>,
+    inputParams: {}
+  },
+  _httpStatusCode: <span class=" -Color -Color-Yellow">401</span>
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="verifier-create-presentation-challenge">
+<h1>Verifier create Presentation Challenge<a class="headerlink" href="#verifier-create-presentation-challenge" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">presentationChallenge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">verifierWallet</span><span class="p">.</span><span class="nx">generatePresentationChallenge</span><span class="p">([</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;VerifiableCredential&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ContentLike&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">jwt_decode</span><span class="p">(</span><span class="nx">presentationChallenge</span><span class="p">),</span><span class="kc">null</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  &quot;interactionToken&quot;: {
+    &quot;credentialRequirements&quot;: [
+      {
+        &quot;type&quot;: [
+          &quot;VerifiableCredential&quot;,
+          &quot;ContentLike&quot;
+        ],
+        &quot;constraints&quot;: []
+      }
+    ],
+    &quot;callbackURL&quot;: &quot;&quot;
+  },
+  &quot;exp&quot;: 1663398268356,
+  &quot;typ&quot;: &quot;credentialRequest&quot;,
+  &quot;jti&quot;: &quot;038e7a1d81ae3d05&quot;,
+  &quot;iss&quot;: &quot;did:elem:EiBsQ5S0kNYU-CkVLHFVQQxSp58gpcQP9zg1nFGTr-avjQ;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeVptVmxZbU16WkdJNE1UYzJPRGc0TXpRek9EWmxOVFJqTkRKalpqTmtOMll3TjJFMU1UWTVOVEJqWm1NNFpUYzJPRGcxTTJZek56a3dNbVkwWlRZNE1TSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TWpjMk9HVXpNVFUwWlRWallXWTJabVppWm1FM1pHVm1PVE15TXpNMU1EWTJOalU0T0dWaU9HUTROemhqTVdFMk1qRXhaR1kxWXpneVpHUmpNalJpT1dVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiRnNnRUdlWVhOLTdKN2pPUUpyNjRoaHV5ZmNUWmxuVHRKeXl6SEhXelhRRmVDRTQ4dnYxM0c5TkZXOFo2MElyTHJmTkFtWEpaU0c1cXpMZlRLMDNhSVEifQ&quot;,
+  &quot;kid&quot;: &quot;did:elem:EiBsQ5S0kNYU-CkVLHFVQQxSp58gpcQP9zg1nFGTr-avjQ#primary&quot;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lest-prepare-credential">
+<h1>Lest prepare credential<a class="headerlink" href="#lest-prepare-credential" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">jsonSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://schema.affinidi.com/ContentLikeV1-0.json&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">jsonContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://schema.affinidi.com/ContentLikeV1-0.jsonld&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`claimId:</span><span class="si">${</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">36</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">unsignedVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s1">&#39;@context&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;https://www.w3.org/2018/credentials/v1&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">jsonContext</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">id</span><span class="p">,</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;VerifiableCredential&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ContentLike&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">holder</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">holderWallet.did</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">credentialSubject</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://www.youtube.com/watch?v=owbkzvLhblk&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">like</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">score</span><span class="o">:</span><span class="w"> </span><span class="kt">10</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">credentialSchema</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w">  </span><span class="kt">jsonSchema</span><span class="p">,</span>
+<span class="w">      </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;JsonSchemaValidator2018&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">issuanceDate</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">(),</span>
+<span class="w">    </span><span class="nx">expirationDate</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2065-09-10T00:00:00.000Z&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span><span class="w">   </span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signedCredential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">holderWallet</span><span class="p">.</span><span class="nx">signUnsignedCredential</span><span class="p">(</span><span class="nx">unsignedVC</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="create-verifiable-presentation">
+<h1>Create Verifiable Presentation<a class="headerlink" href="#create-verifiable-presentation" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">vp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">holderWallet</span><span class="p">.</span><span class="nx">createPresentationFromChallenge</span><span class="p">(</span>
+<span class="w">      </span><span class="nx">presentationChallenge</span><span class="p">,</span>
+<span class="w">      </span><span class="p">[</span><span class="nx">signedCredential</span><span class="p">],</span>
+<span class="w">      </span><span class="s1">&#39;youtube.com&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">vp</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  &quot;@context&quot;: [
+    &quot;https://www.w3.org/2018/credentials/v1&quot;
+  ],
+  &quot;id&quot;: &quot;presentationId:f461e8a2b035d689&quot;,
+  &quot;type&quot;: [
+    &quot;VerifiablePresentation&quot;
+  ],
+  &quot;holder&quot;: {
+    &quot;id&quot;: &quot;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBelpXRTJZamsyT1dabU1qZG1ZelppWlRKaE56TTFNREExTW1FMFpqWTNaamt4WWpjelltRmpNemMxT0RCak9UQTJabVUxTnpWbFpEVXpPVEpsTURWaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TWpSaU9Ea3pNRFJoWmpObE9XTTNaRGxtT0RRNU5qTTJZalUyWldGa056azRNalkyWldNMFlqWTNOR0pqTlRZNE1qVXpZalF6WVdRNE9UVTVNRGt6TURZaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiNl9OUjRVUl83clFHV2gwUzViVy05eXAyY1JSTEpVbTd2TXVaVmxPOHZLdHBMR1FMNTRqZHNkOTNzZ1ladGRTRGJWY2ZCQkROYlRncmNwUGNKRHFIOUEifQ&quot;
+  },
+  &quot;verifiableCredential&quot;: [
+    {
+      &quot;@context&quot;: [
+        &quot;https://www.w3.org/2018/credentials/v1&quot;,
+        &quot;https://schema.affinidi.com/ContentLikeV1-0.jsonld&quot;
+      ],
+      &quot;id&quot;: &quot;claimId:3ei8jmbf5u&quot;,
+      &quot;type&quot;: [
+        &quot;VerifiableCredential&quot;,
+        &quot;ContentLike&quot;
+      ],
+      &quot;holder&quot;: {
+        &quot;id&quot;: &quot;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBelpXRTJZamsyT1dabU1qZG1ZelppWlRKaE56TTFNREExTW1FMFpqWTNaamt4WWpjelltRmpNemMxT0RCak9UQTJabVUxTnpWbFpEVXpPVEpsTURWaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TWpSaU9Ea3pNRFJoWmpObE9XTTNaRGxtT0RRNU5qTTJZalUyWldGa056azRNalkyWldNMFlqWTNOR0pqTlRZNE1qVXpZalF6WVdRNE9UVTVNRGt6TURZaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiNl9OUjRVUl83clFHV2gwUzViVy05eXAyY1JSTEpVbTd2TXVaVmxPOHZLdHBMR1FMNTRqZHNkOTNzZ1ladGRTRGJWY2ZCQkROYlRncmNwUGNKRHFIOUEifQ&quot;
+      },
+      &quot;credentialSubject&quot;: {
+        &quot;data&quot;: {
+          &quot;url&quot;: &quot;https://www.youtube.com/watch?v=owbkzvLhblk&quot;,
+          &quot;date&quot;: &quot;2022-09-17T06:54:31.010Z&quot;,
+          &quot;like&quot;: true,
+          &quot;score&quot;: 10
+        }
+      },
+      &quot;credentialSchema&quot;: {
+        &quot;id&quot;: &quot;https://schema.affinidi.com/ContentLikeV1-0.json&quot;,
+        &quot;type&quot;: &quot;JsonSchemaValidator2018&quot;
+      },
+      &quot;issuanceDate&quot;: &quot;2022-09-17T06:54:31.010Z&quot;,
+      &quot;expirationDate&quot;: &quot;2065-09-10T00:00:00.000Z&quot;,
+      &quot;issuer&quot;: &quot;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBelpXRTJZamsyT1dabU1qZG1ZelppWlRKaE56TTFNREExTW1FMFpqWTNaamt4WWpjelltRmpNemMxT0RCak9UQTJabVUxTnpWbFpEVXpPVEpsTURWaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TWpSaU9Ea3pNRFJoWmpObE9XTTNaRGxtT0RRNU5qTTJZalUyWldGa056azRNalkyWldNMFlqWTNOR0pqTlRZNE1qVXpZalF6WVdRNE9UVTVNRGt6TURZaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiNl9OUjRVUl83clFHV2gwUzViVy05eXAyY1JSTEpVbTd2TXVaVmxPOHZLdHBMR1FMNTRqZHNkOTNzZ1ladGRTRGJWY2ZCQkROYlRncmNwUGNKRHFIOUEifQ&quot;,
+      &quot;proof&quot;: {
+        &quot;type&quot;: &quot;EcdsaSecp256k1Signature2019&quot;,
+        &quot;created&quot;: &quot;2022-09-17T06:54:31Z&quot;,
+        &quot;verificationMethod&quot;: &quot;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw#primary&quot;,
+        &quot;proofPurpose&quot;: &quot;assertionMethod&quot;,
+        &quot;jws&quot;: &quot;eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..qUwDsQXYF008YwMn1MFG9JQbD8VF7hZYauJf-3bqYMMifqN6J6x7DIXQY6cOHSw3zwLLRRgmVtktJiG1Gd3eXg&quot;
+      }
+    }
+  ],
+  &quot;proof&quot;: {
+    &quot;type&quot;: &quot;EcdsaSecp256k1Signature2019&quot;,
+    &quot;created&quot;: &quot;2022-09-17T06:54:36Z&quot;,
+    &quot;verificationMethod&quot;: &quot;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw#primary&quot;,
+    &quot;proofPurpose&quot;: &quot;authentication&quot;,
+    &quot;challenge&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpbnRlcmFjdGlvblRva2VuIjp7ImNyZWRlbnRpYWxSZXF1aXJlbWVudHMiOlt7InR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJDb250ZW50TGlrZSJdLCJjb25zdHJhaW50cyI6W119XSwiY2FsbGJhY2tVUkwiOiIifSwiZXhwIjoxNjYzMzk4MjY4MzU2LCJ0eXAiOiJjcmVkZW50aWFsUmVxdWVzdCIsImp0aSI6IjAzOGU3YTFkODFhZTNkMDUiLCJpc3MiOiJkaWQ6ZWxlbTpFaUJzUTVTMGtOWVUtQ2tWTEhGVlFReFNwNThncGNRUDl6ZzFuRkdUci1hdmpRO2VsZW06aW5pdGlhbC1zdGF0ZT1leUp3Y205MFpXTjBaV1FpT2lKbGVVcDJZMGRXZVZsWVVuQmlNalJwVDJsS2FtTnRWbWhrUjFWcFRFTktjbUZYVVdsUGFVbHFZMGhLY0dKWFJubGxVMGx6U1cxR2MxcDVTVFpKYTFaVVRXcFZNbE41U2praUxDSndZWGxzYjJGa0lqb2laWGxLUVZreU9YVmtSMVkwWkVOSk5rbHRhREJrU0VKNlQyazRkbVI2VG5CYVF6VjJZMjFqZG1NeVZtcGtXRXB3WkVocmRtUnFTV2xNUTBwM1pGZEtjMkZYVGt4YVdHdHBUMngwTjBsdGJHdEphbTlwU1ROQ2VXRlhNV2hqYm10cFRFTktNV015Um01YVUwazJTVzVPY0ZveU5YQmliV05wVEVOS01HVllRbXhKYW05cFZUSldhbU5FU1RGT2JYTjRWbTFXZVdGWFduQlpNa1l3WVZjNWRWTXlWalZOYWtGNFQwTkpjMGx1UWpGWmJYaHdXVEIwYkdWVmFHeGxRMGsyU1dwQmVWcHRWbXhaYlUxNldrZEpORTFVWXpKUFJHYzBUWHBSZWs5RVdteE9WRkpxVGtSS2FscHFUbXRPTWxsM1RqSkZNVTFVV1RWT1ZFSnFXbTFOTkZwVVl6SlBSR2N4VFRKWmVrNTZhM2ROYlZrd1dsUlpORTFUU2psTVNITnBZVmRSYVU5cFNXcGpiVlpxWWpOYWJHTnVhMmxNUTBveFl6SkdibHBUU1RaSmJrcHNXVEk1TWxwWVNqVkphWGRwWkVoc2QxcFRTVFpKYkU1c1dUTkJlVTVVV25KTlZscHNZMjFzYldGWFRtaGtSMngyWW10MGJHVlVTWGROVkdkcFRFTktkMlJYU25OaFYwNU1XbGhzU1ZwWVoybFBhVWwzVFdwak1rOUhWWHBOVkZVd1dsUldhbGxYV1RKYWJWcHBXbTFGTTFwSFZtMVBWRTE1VFhwTk1VMUVXVEpPYWxVMFQwZFdhVTlIVVRST2VtaHFUVmRGTWsxcVJYaGFSMWt4V1hwbmVWcEhVbXBOYWxKcFQxZFZhV1pXTUhOSmJVWXhaRWRvYkdKdVVuQlpNa1l3WVZjNWRVbHFjR0pKYVU1M1kyMXNkRmxZU2pWSmJEQnpTVzFHZW1NeVZubGtSMngyWW1zeGJHUkhhSFphUTBrMlYzbEphbU5JU25CaVYwWjVaVk5LWkdaUklpd2ljMmxuYm1GMGRYSmxJam9pUm5OblJVZGxXVmhPTFRkS04ycFBVVXB5TmpSb2FIVjVabU5VV214dVZIUktlWGw2U0VoWGVsaFJSbVZEUlRRNGRuWXhNMGM1VGtaWE9GbzJNRWx5VEhKbVRrRnRXRXBhVTBjMWNYcE1abFJMTUROaFNWRWlmUSIsImtpZCI6ImRpZDplbGVtOkVpQnNRNVMwa05ZVS1Da1ZMSEZWUVF4U3A1OGdwY1FQOXpnMW5GR1RyLWF2alEjcHJpbWFyeSJ9.91747dcc293f1040f74337a3d0f584c9ef3df1d79c79b71d2e5c5bdfbeaf25a22a1f73cf96b4e26931496d837cb5d1044c81a0f745608225abf32ea5f8805c1c&quot;,
+    &quot;domain&quot;: &quot;youtube.com&quot;,
+    &quot;jws&quot;: &quot;eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..-651IUOrbZTWW7z86eC7ED7ivLfdzyYw4sNnLDvq_Ilu4wMJQDVMo1hWp--GRO8Lxk0H3Ntg1_5veAjOqmye7Q&quot;
+  }
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="verification">
+<h1>Verification<a class="headerlink" href="#verification" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">verifierWallet</span><span class="p">.</span><span class="nx">verifyPresentation</span><span class="p">(</span><span class="nx">vp</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  isValid: true,
+  did: &#39;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBelpXRTJZamsyT1dabU1qZG1ZelppWlRKaE56TTFNREExTW1FMFpqWTNaamt4WWpjelltRmpNemMxT0RCak9UQTJabVUxTnpWbFpEVXpPVEpsTURWaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TWpSaU9Ea3pNRFJoWmpObE9XTTNaRGxtT0RRNU5qTTJZalUyWldGa056azRNalkyWldNMFlqWTNOR0pqTlRZNE1qVXpZalF6WVdRNE9UVTVNRGt6TURZaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiNl9OUjRVUl83clFHV2gwUzViVy05eXAyY1JSTEpVbTd2TXVaVmxPOHZLdHBMR1FMNTRqZHNkOTNzZ1ladGRTRGJWY2ZCQkROYlRncmNwUGNKRHFIOUEifQ&#39;,
+  challenge: &#39;eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpbnRlcmFjdGlvblRva2VuIjp7ImNyZWRlbnRpYWxSZXF1aXJlbWVudHMiOlt7InR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJDb250ZW50TGlrZSJdLCJjb25zdHJhaW50cyI6W119XSwiY2FsbGJhY2tVUkwiOiIifSwiZXhwIjoxNjYzMzk4MjY4MzU2LCJ0eXAiOiJjcmVkZW50aWFsUmVxdWVzdCIsImp0aSI6IjAzOGU3YTFkODFhZTNkMDUiLCJpc3MiOiJkaWQ6ZWxlbTpFaUJzUTVTMGtOWVUtQ2tWTEhGVlFReFNwNThncGNRUDl6ZzFuRkdUci1hdmpRO2VsZW06aW5pdGlhbC1zdGF0ZT1leUp3Y205MFpXTjBaV1FpT2lKbGVVcDJZMGRXZVZsWVVuQmlNalJwVDJsS2FtTnRWbWhrUjFWcFRFTktjbUZYVVdsUGFVbHFZMGhLY0dKWFJubGxVMGx6U1cxR2MxcDVTVFpKYTFaVVRXcFZNbE41U2praUxDSndZWGxzYjJGa0lqb2laWGxLUVZreU9YVmtSMVkwWkVOSk5rbHRhREJrU0VKNlQyazRkbVI2VG5CYVF6VjJZMjFqZG1NeVZtcGtXRXB3WkVocmRtUnFTV2xNUTBwM1pGZEtjMkZYVGt4YVdHdHBUMngwTjBsdGJHdEphbTlwU1ROQ2VXRlhNV2hqYm10cFRFTktNV015Um01YVUwazJTVzVPY0ZveU5YQmliV05wVEVOS01HVllRbXhKYW05cFZUSldhbU5FU1RGT2JYTjRWbTFXZVdGWFduQlpNa1l3WVZjNWRWTXlWalZOYWtGNFQwTkpjMGx1UWpGWmJYaHdXVEIwYkdWVmFHeGxRMGsyU1dwQmVWcHRWbXhaYlUxNldrZEpORTFVWXpKUFJHYzBUWHBSZWs5RVdteE9WRkpxVGtSS2FscHFUbXRPTWxsM1RqSkZNVTFVV1RWT1ZFSnFXbTFOTkZwVVl6SlBSR2N4VFRKWmVrNTZhM2ROYlZrd1dsUlpORTFUU2psTVNITnBZVmRSYVU5cFNXcGpiVlpxWWpOYWJHTnVhMmxNUTBveFl6SkdibHBUU1RaSmJrcHNXVEk1TWxwWVNqVkphWGRwWkVoc2QxcFRTVFpKYkU1c1dUTkJlVTVVV25KTlZscHNZMjFzYldGWFRtaGtSMngyWW10MGJHVlVTWGROVkdkcFRFTktkMlJYU25OaFYwNU1XbGhzU1ZwWVoybFBhVWwzVFdwak1rOUhWWHBOVkZVd1dsUldhbGxYV1RKYWJWcHBXbTFGTTFwSFZtMVBWRTE1VFhwTk1VMUVXVEpPYWxVMFQwZFdhVTlIVVRST2VtaHFUVmRGTWsxcVJYaGFSMWt4V1hwbmVWcEhVbXBOYWxKcFQxZFZhV1pXTUhOSmJVWXhaRWRvYkdKdVVuQlpNa1l3WVZjNWRVbHFjR0pKYVU1M1kyMXNkRmxZU2pWSmJEQnpTVzFHZW1NeVZubGtSMngyWW1zeGJHUkhhSFphUTBrMlYzbEphbU5JU25CaVYwWjVaVk5LWkdaUklpd2ljMmxuYm1GMGRYSmxJam9pUm5OblJVZGxXVmhPTFRkS04ycFBVVXB5TmpSb2FIVjVabU5VV214dVZIUktlWGw2U0VoWGVsaFJSbVZEUlRRNGRuWXhNMGM1VGtaWE9GbzJNRWx5VEhKbVRrRnRXRXBhVTBjMWNYcE1abFJMTUROaFNWRWlmUSIsImtpZCI6ImRpZDplbGVtOkVpQnNRNVMwa05ZVS1Da1ZMSEZWUVF4U3A1OGdwY1FQOXpnMW5GR1RyLWF2alEjcHJpbWFyeSJ9.91747dcc293f1040f74337a3d0f584c9ef3df1d79c79b71d2e5c5bdfbeaf25a22a1f73cf96b4e26931496d837cb5d1044c81a0f745608225abf32ea5f8805c1c&#39;,
+  suppliedPresentation: {
+    &#39;@context&#39;: [ &#39;https://www.w3.org/2018/credentials/v1&#39; ],
+    id: &#39;presentationId:f461e8a2b035d689&#39;,
+    type: [ &#39;VerifiablePresentation&#39; ],
+    holder: {
+      id: &#39;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBelpXRTJZamsyT1dabU1qZG1ZelppWlRKaE56TTFNREExTW1FMFpqWTNaamt4WWpjelltRmpNemMxT0RCak9UQTJabVUxTnpWbFpEVXpPVEpsTURWaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TWpSaU9Ea3pNRFJoWmpObE9XTTNaRGxtT0RRNU5qTTJZalUyWldGa056azRNalkyWldNMFlqWTNOR0pqTlRZNE1qVXpZalF6WVdRNE9UVTVNRGt6TURZaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiNl9OUjRVUl83clFHV2gwUzViVy05eXAyY1JSTEpVbTd2TXVaVmxPOHZLdHBMR1FMNTRqZHNkOTNzZ1ladGRTRGJWY2ZCQkROYlRncmNwUGNKRHFIOUEifQ&#39;
+    },
+    verifiableCredential: [ [Object] ],
+    proof: {
+      type: &#39;EcdsaSecp256k1Signature2019&#39;,
+      created: &#39;2022-09-17T06:54:36Z&#39;,
+      verificationMethod: &#39;did:elem:EiC5XYylCfH47s7dcJt2SpdBg1yS2lyuJpR6J8WAY0swRw#primary&#39;,
+      proofPurpose: &#39;authentication&#39;,
+      challenge: &#39;eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksifQ.eyJpbnRlcmFjdGlvblRva2VuIjp7ImNyZWRlbnRpYWxSZXF1aXJlbWVudHMiOlt7InR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJDb250ZW50TGlrZSJdLCJjb25zdHJhaW50cyI6W119XSwiY2FsbGJhY2tVUkwiOiIifSwiZXhwIjoxNjYzMzk4MjY4MzU2LCJ0eXAiOiJjcmVkZW50aWFsUmVxdWVzdCIsImp0aSI6IjAzOGU3YTFkODFhZTNkMDUiLCJpc3MiOiJkaWQ6ZWxlbTpFaUJzUTVTMGtOWVUtQ2tWTEhGVlFReFNwNThncGNRUDl6ZzFuRkdUci1hdmpRO2VsZW06aW5pdGlhbC1zdGF0ZT1leUp3Y205MFpXTjBaV1FpT2lKbGVVcDJZMGRXZVZsWVVuQmlNalJwVDJsS2FtTnRWbWhrUjFWcFRFTktjbUZYVVdsUGFVbHFZMGhLY0dKWFJubGxVMGx6U1cxR2MxcDVTVFpKYTFaVVRXcFZNbE41U2praUxDSndZWGxzYjJGa0lqb2laWGxLUVZreU9YVmtSMVkwWkVOSk5rbHRhREJrU0VKNlQyazRkbVI2VG5CYVF6VjJZMjFqZG1NeVZtcGtXRXB3WkVocmRtUnFTV2xNUTBwM1pGZEtjMkZYVGt4YVdHdHBUMngwTjBsdGJHdEphbTlwU1ROQ2VXRlhNV2hqYm10cFRFTktNV015Um01YVUwazJTVzVPY0ZveU5YQmliV05wVEVOS01HVllRbXhKYW05cFZUSldhbU5FU1RGT2JYTjRWbTFXZVdGWFduQlpNa1l3WVZjNWRWTXlWalZOYWtGNFQwTkpjMGx1UWpGWmJYaHdXVEIwYkdWVmFHeGxRMGsyU1dwQmVWcHRWbXhaYlUxNldrZEpORTFVWXpKUFJHYzBUWHBSZWs5RVdteE9WRkpxVGtSS2FscHFUbXRPTWxsM1RqSkZNVTFVV1RWT1ZFSnFXbTFOTkZwVVl6SlBSR2N4VFRKWmVrNTZhM2ROYlZrd1dsUlpORTFUU2psTVNITnBZVmRSYVU5cFNXcGpiVlpxWWpOYWJHTnVhMmxNUTBveFl6SkdibHBUU1RaSmJrcHNXVEk1TWxwWVNqVkphWGRwWkVoc2QxcFRTVFpKYkU1c1dUTkJlVTVVV25KTlZscHNZMjFzYldGWFRtaGtSMngyWW10MGJHVlVTWGROVkdkcFRFTktkMlJYU25OaFYwNU1XbGhzU1ZwWVoybFBhVWwzVFdwak1rOUhWWHBOVkZVd1dsUldhbGxYV1RKYWJWcHBXbTFGTTFwSFZtMVBWRTE1VFhwTk1VMUVXVEpPYWxVMFQwZFdhVTlIVVRST2VtaHFUVmRGTWsxcVJYaGFSMWt4V1hwbmVWcEhVbXBOYWxKcFQxZFZhV1pXTUhOSmJVWXhaRWRvYkdKdVVuQlpNa1l3WVZjNWRVbHFjR0pKYVU1M1kyMXNkRmxZU2pWSmJEQnpTVzFHZW1NeVZubGtSMngyWW1zeGJHUkhhSFphUTBrMlYzbEphbU5JU25CaVYwWjVaVk5LWkdaUklpd2ljMmxuYm1GMGRYSmxJam9pUm5OblJVZGxXVmhPTFRkS04ycFBVVXB5TmpSb2FIVjVabU5VV214dVZIUktlWGw2U0VoWGVsaFJSbVZEUlRRNGRuWXhNMGM1VGtaWE9GbzJNRWx5VEhKbVRrRnRXRXBhVTBjMWNYcE1abFJMTUROaFNWRWlmUSIsImtpZCI6ImRpZDplbGVtOkVpQnNRNVMwa05ZVS1Da1ZMSEZWUVF4U3A1OGdwY1FQOXpnMW5GR1RyLWF2alEjcHJpbWFyeSJ9.91747dcc293f1040f74337a3d0f584c9ef3df1d79c79b71d2e5c5bdfbeaf25a22a1f73cf96b4e26931496d837cb5d1044c81a0f745608225abf32ea5f8805c1c&#39;,
+      domain: &#39;youtube.com&#39;,
+      jws: &#39;eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..-651IUOrbZTWW7z86eC7ED7ivLfdzyYw4sNnLDvq_Ilu4wMJQDVMo1hWp--GRO8Lxk0H3Ntg1_5veAjOqmye7Q&#39;
+    }
+  }
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "tslab"
+        },
+        kernelOptions: {
+            name: "tslab",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'tslab'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="request-for-offer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Howto offer VC to Holder</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pex-vp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Presentation Exchange</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Howto Share VC with Verifier</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#flow">Flow</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#verifier-create-presentation-challenge">Verifier create Presentation Challenge</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lest-prepare-credential">Lest prepare credential</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#create-verifiable-presentation">Create Verifiable Presentation</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#verification">Verification</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Volodymyr Pavlyshyn
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
