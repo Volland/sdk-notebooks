@@ -1,4 +1,4 @@
-# Welcome to Self Severing Identity with Affinidi SDK
+# Welcome to Self Sovereign Identity with Affinidi SDK
 I assume that you already know some basics of SSI if not we will discover few key ideas in this book and videos.
 This book is just compilation of ipython notebooks that could be independently run for every topic. 
 Each character has a youtube videos that explain a topic it self and hands on code based on affinidi sdk.
