@@ -222,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book" target="_blank"
+      <li><a href="https://github.com/Volland/sdk-notebooks" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -239,7 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book/issues/new?title=Issue%20on%20page%20%2Fdemo-sdk-create-wallet.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Volland/sdk-notebooks/issues/new?title=Issue%20on%20page%20%2Fdemo-sdk-create-wallet.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -438,35 +438,6 @@ Any crypto wallet have one and only one function that really matter - it is mana
 <span class="kd">const</span><span class="w">  </span><span class="nx">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">encryptedSeed</span><span class="w"> </span>
 <span class="kd">const</span><span class="w">  </span><span class="nx">did</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sdk</span><span class="p">.</span><span class="nx">did</span><span class="w">  </span>
 <span class="w">  </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COM-7: API KEY not found.
-    at executeByOptions (/opt/app/book/node_modules/@affinidi/tools-openapi/dist/helpers/client.js:62:19)
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at async Object.AnchorDid (/opt/app/book/node_modules/@affinidi/tools-openapi/dist/helpers/mapFunctions.js:17:28)
-    at async anchorDid (/opt/app/book/node_modules/@affinidi/wallet-core-sdk/dist/services/anchoringHandler.js:51:22)
-    at async register (/opt/app/book/node_modules/@affinidi/wallet-core-sdk/dist/services/registeringHandler.js:24:26)
-    at async Function.createWallet (/opt/app/book/node_modules/@affinidi/wallet-core-sdk/dist/CommonNetworkMember/NetworkMemberWithoutCognito.js:45:26)
-    at async evalmachine.&lt;anonymous&gt;:3:13
-    at async Object.execute (/usr/local/lib/node_modules/tslab/dist/executor.js:175:17)
-    at async JupyterHandlerImpl.handleExecuteImpl (/usr/local/lib/node_modules/tslab/dist/jupyter.js:219:18)
-    at async JupyterHandlerImpl.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:177:21) {
-  _isSdkError: <span class=" -Color -Color-Yellow">true</span>,
-  _code: <span class=" -Color -Color-Green">&#39;COM-7&#39;</span>,
-  _context: {},
-  _originalError: {
-    serviceName: <span class=" -Color -Color-Green">&#39;REG&#39;</span>,
-    code: <span class=" -Color -Color-Green">&#39;COM-7&#39;</span>,
-    message: <span class=" -Color -Color-Green">&#39;API KEY not found.&#39;</span>,
-    context: {},
-    httpStatusCode: <span class=" -Color -Color-Yellow">401</span>,
-    endpointUrl: <span class=" -Color -Color-Green">&#39;/api/v1/did/anchor-did&#39;</span>,
-    inputParams: {}
-  },
-  _httpStatusCode: <span class=" -Color -Color-Yellow">401</span>
-}
 </pre></div>
 </div>
 </div>

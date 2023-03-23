@@ -222,7 +222,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book" target="_blank"
+      <li><a href="https://github.com/Volland/sdk-notebooks" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -239,7 +239,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/Volland/sdk-notebooks/sdk-book/issues/new?title=Issue%20on%20page%20%2Fcreate-revocable-vc.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Volland/sdk-notebooks/issues/new?title=Issue%20on%20page%20%2Fcreate-revocable-vc.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -412,38 +412,9 @@ You could follow this notebook in video</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>evalmachine.&lt;anonymous&gt;:5
-    accessApiKey,
-    ^
-
-ReferenceError: accessApiKey is not defined
-    at evalmachine.&lt;anonymous&gt;:5:5
-    at evalmachine.&lt;anonymous&gt;:9:3
-    at sigintHandlersWrap (node:vm:268:12)
-    at Script.runInThisContext (node:vm:127:14)
-    at Object.runInThisContext (node:vm:305:38)
-    at Object.execute (/usr/local/lib/node_modules/tslab/dist/executor.js:162:38)
-    at JupyterHandlerImpl.handleExecuteImpl (/usr/local/lib/node_modules/tslab/dist/jupyter.js:219:38)
-    at /usr/local/lib/node_modules/tslab/dist/jupyter.js:177:57
-    at async JupyterHandlerImpl.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:177:21)
-    at async ZmqServer.handleExecute (/usr/local/lib/node_modules/tslab/dist/jupyter.js:375:25)
-</pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">Lets</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">issuer</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">holder</span><span class="w"> </span><span class="nx">wallets</span><span class="p">.</span>
-<span class="nx">We</span><span class="w"> </span><span class="nx">need</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">holder</span><span class="w"> </span><span class="nx">did</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">issue</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">concrete</span><span class="w"> </span><span class="nx">holder</span><span class="p">.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>Lets create our issuer and holder wallets.
 We need to have a holder did to issue a VC for concrete holder.</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`P@</span><span class="si">${</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">36</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="si">}</span><span class="sb">!!42`</span><span class="p">;</span>
