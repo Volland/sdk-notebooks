@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -163,7 +164,9 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="pex-vp.html">Presentation Exchange</a></li>
+
 
 <li class="toctree-l1"><a class="reference internal" href="credential-storage.html">Affinidi Vault - Credential Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-managment.html">Affinidi Vault - Custodial Wallet</a></li>
@@ -506,30 +509,12 @@ We need to have a holder did to issue a VC for concrete holder.</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">It</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">already</span><span class="w"> </span><span class="nx">good</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">sign</span><span class="w"> </span><span class="nx">but</span><span class="w"> </span><span class="nx">what</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="nx">ll</span><span class="w"> </span><span class="nx">change</span><span class="w"> </span><span class="nx">my</span><span class="w"> </span><span class="nx">mind</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">future</span><span class="w"> </span><span class="o">?</span>
-
-<span class="nx">VCs</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">immutable</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">owned</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">holder</span><span class="p">.</span><span class="w"> </span><span class="nx">Once</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">issue</span><span class="w"> </span><span class="nx">tham</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">control</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">more</span><span class="p">.</span>
-
-<span class="nx">We</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">special</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">VCs</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">allow</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Revoke</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">future</span><span class="w"> </span><span class="nx">even</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">dont</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">control</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">itself</span>
-
-<span class="nx">It</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">based</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="p">[</span><span class="nx">Revocation</span><span class="w"> </span><span class="nx">List</span><span class="w"> </span><span class="mf">2020</span><span class="p">](</span><span class="nx">https</span><span class="o">:</span><span class="c1">//w3c-ccg.github.io/vc-status-rl-2020/#core-concept) standard </span>
-
-<span class="nx">It</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">quite</span><span class="w"> </span><span class="nx">complex</span><span class="w"> </span><span class="nx">flow</span><span class="w"> </span><span class="nx">but</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">easy</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">implement</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">method</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">SDK</span><span class="p">.</span>
-<span class="nx">You</span><span class="w"> </span><span class="nx">could</span><span class="w"> </span><span class="nx">upgrade</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">VC</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">revocapbe</span><span class="w"> </span><span class="nx">VC</span><span class="p">.</span><span class="w"> </span><span class="nx">We</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">prepare</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">publish</span><span class="w"> </span><span class="nx">revocation</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>It is already good VC to sign but what if i ll change my mind in a future ?</p>
 <p>VCs are immutable and owned by holder. Once you issue tham you do not have a control on VC any more.</p>
 <p>We have a special type of VCs that allow you to Revoke a VC in a future even if you dont have a control on VC itself</p>
 <p>It is based on <a class="reference external" href="https://w3c-ccg.github.io/vc-status-rl-2020/#core-concept">Revocation List 2020</a> standard</p>
 <p>It is quite complex flow but we make it easy for you and implement a method in our SDK.
 You could upgrade your VC to revocapbe VC. We will prepare and publish revocation list for you</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w">  </span><span class="nx">RevocableVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletIssuer</span><span class="p">.</span><span class="nx">buildRevocationListStatus</span><span class="p">(</span><span class="nx">unsignedVC</span><span class="p">)</span>
@@ -537,12 +522,18 @@ You could upgrade your VC to revocapbe VC. We will prepare and publish revocatio
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">RevocableVC</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
   &#39;@context&#39;: [
@@ -589,12 +580,18 @@ You could upgrade your VC to revocapbe VC. We will prepare and publish revocatio
 </div>
 </div>
 <p>Together with a VC we issue a Revocation List VC connected to our Credential. This credential is Issuer specific List and Signed and controled by issuer. Every time when Issuer bublish new Revocable VC or revoke a VC. Revocation List gets updated and published.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">revocationListVc</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
   id: &#39;https://revocation-api.prod.affinity-project.org/api/v1/revocation/revocation-list-2020-credentials/did:elem:EiBIkVawTQOfOCYp2xSITNKKePuELFTj3oc1ITnxk2uehw/20551&#39;,
@@ -639,12 +636,18 @@ So issuence on edge is simple operation</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">signedRevocableVC</span>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
   &#39;@context&#39;: [
@@ -714,16 +717,7 @@ We could do a verification on edge with our common library</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">Lets</span><span class="w"> </span><span class="nx">verify</span><span class="w"> </span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>Lets verify</p>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">verificationResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">verifier</span><span class="p">.</span><span class="nx">validateCredential</span><span class="p">(</span><span class="nx">signedRevocableVC</span><span class="p">)</span>
@@ -756,22 +750,10 @@ verificationRevokedResult = await verifier4.validateCredential(signedRevocableVC
 })().catch(console.error)</p>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nx">result</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;claimId:gacultz6iz: Credential revocation status check result is negative.&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <p>{
 result: false,
 error: ‘claimId:gacultz6iz: Credential revocation status check result is negative.’
 }</p>
-</div>
-</div>
 </section>
 <section id="revocation-api-internals">
 <h2>Revocation API internals<a class="headerlink" href="#revocation-api-internals" title="Permalink to this heading">#</a></h2>

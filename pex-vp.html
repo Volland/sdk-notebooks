@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -163,7 +164,9 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Presentation Exchange</a></li>
+
 
 <li class="toctree-l1"><a class="reference internal" href="credential-storage.html">Affinidi Vault - Credential Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-managment.html">Affinidi Vault - Custodial Wallet</a></li>
@@ -366,6 +369,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#presentation-submission">Presentation Submission</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#follow-a-video">Follow a Video</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-implementation">Flow implementation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-definition">1 Create a Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-a-vcs-in-wallet">2 Filtering a VCs in wallet</a><ul class="nav section-nav flex-column">
@@ -393,7 +397,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell docutils container">
+  <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createWallet</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@affinidi/wallet-node-sdk&#39;</span>
 <span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">VCV1Type</span><span class="p">,</span><span class="w"> </span><span class="nx">VPV1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@affinidi/vc-common&#39;</span>
@@ -406,6 +415,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <section id="presentation-exchange">
 <h1>Presentation Exchange<a class="headerlink" href="#presentation-exchange" title="Permalink to this heading">#</a></h1>
@@ -421,7 +431,16 @@ If we keep it simple definition is a requirement and query to a user wallet that
 <h2>Presentation Submission<a class="headerlink" href="#presentation-submission" title="Permalink to this heading">#</a></h2>
 <p><strong>Presentation Submissions</strong> are objects embedded within VP claim negotiation formats that unify the presentation of proofs to a Verifier in accordance with the requirements a Verifier specified in a Presentation Definition.</p>
 <p>We will see in examples and details how presentation definition is corelated with submission part of VP. Submission part contains a id of definition and a descriptors map that help Verifier to navigate to a VC that satisfy concrete input descriptor of presentation definition</p>
-<div class="cell docutils container">
+</section>
+</section>
+<section id="follow-a-video">
+<h1>Follow a Video<a class="headerlink" href="#follow-a-video" title="Permalink to this heading">#</a></h1>
+<div class="container16x9"><iframe src="https://www.youtube.com/embed/LLbST4zC0kU" class="responsive-iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">plantumlEncoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;plantuml-encoder&#39;</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">tslab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;tslab&quot;</span><span class="p">);</span>
@@ -447,10 +466,10 @@ If we keep it simple definition is a requirement and query to a user wallet that
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><img src="http://www.plantuml.com/plantuml/svg/XP5DQyCm38Rl_XLQ6AM5jg5TJuD2MNVOOOCmMA_3ZPN4p963vRGhO_zzTlgLxRARBBrwNiaIA_RI-ROsuaPJRbg5K7dVy7sQEhcVbjfNxRPbTBabZ-IdkQtJnaYAFHFsokXjkbvCifXwUtbEQyaUNKYzhqE7r8HksaI-UB0jAUaEm-rid6GEEU2arvO0F_DAKed92Bv4Xeuj3Ijh5Ben94zTa8pXbXkdFIwJfbFCaz5PkqEd2zsfDwSm5B_5AvfUxKASWUGFAAo3pPe3-FSmZrXeqZ4CZ4Wuzrtwvr1e4vO4IGeO3UO-aC1Ru4ew19c7prAQofXILrmShpCyRG9BI0P8EpIsmKbkBAFwuzdRx0uqSul0kYHKiCawNWRxS2AGmEss3eAZp_y6Lt3FOd5y763NW0tXt-5FPbSh6FGb8o742ad5Q_y0"/></div></div>
 </div>
-</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="flow-implementation">
 <h1>Flow implementation<a class="headerlink" href="#flow-implementation" title="Permalink to this heading">#</a></h1>
@@ -1146,28 +1165,6 @@ VP validation is a complex tasks that include few steps</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>true
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-unknown msg_type: comm_open
-unknown msg_type: comm_msg
-</pre></div>
-</div>
 </div>
 </div>
 </section>
@@ -1240,6 +1237,7 @@ unknown msg_type: comm_msg
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#presentation-submission">Presentation Submission</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#follow-a-video">Follow a Video</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-implementation">Flow implementation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-definition">1 Create a Definition</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-a-vcs-in-wallet">2 Filtering a VCs in wallet</a><ul class="nav section-nav flex-column">

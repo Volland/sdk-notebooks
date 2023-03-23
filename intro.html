@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -162,7 +163,9 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="pex-vp.html">Presentation Exchange</a></li>
+
 
 <li class="toctree-l1"><a class="reference internal" href="credential-storage.html">Affinidi Vault - Credential Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user-managment.html">Affinidi Vault - Custodial Wallet</a></li>
@@ -360,12 +363,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-ssi">Why SSI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-ssi-and-web5">Why SSI and web5</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssi-principles">SSI Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-identity-systems-and-safe-internet">For identity systems and safe internet</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-data-unlocking-and-ownership">For Data unlocking and Ownership</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affinidi-sdk">Affinidi SDK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-web-5">What about Web 5 ?</a></li>
 </ul>
             </nav>
         </div>
@@ -379,24 +384,39 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="welcome-to-self-severing-identity-with-affinidi-sdk">
 <h1>Welcome to Self Severing Identity with Affinidi SDK<a class="headerlink" href="#welcome-to-self-severing-identity-with-affinidi-sdk" title="Permalink to this heading">#</a></h1>
-<section id="why-ssi">
-<h2>Why SSI<a class="headerlink" href="#why-ssi" title="Permalink to this heading">#</a></h2>
+<section id="why-ssi-and-web5">
+<h2>Why SSI and web5<a class="headerlink" href="#why-ssi-and-web5" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>User centric decentralized world or democratized and unlocked data</p></li>
+<li><p>Allow to create privacy preserving applications</p></li>
+<li><p>Allow to create holistic identity metasystem</p></li>
+</ul>
 </section>
 <section id="ssi-principles">
 <h2>SSI Principles<a class="headerlink" href="#ssi-principles" title="Permalink to this heading">#</a></h2>
-<p><img alt="loos of identity" src="Comparing%20the%20LAWS%20OF%20IDENTITY%20and%20THE%20LAWS%20OF%20SSI.excalidraw.png" />
-<a class="reference external" href="https://www.windley.com/archives/2019/01/the_laws_of_identity.shtml">laws of identity</a></p>
+<section id="for-identity-systems-and-safe-internet">
+<h3>For identity systems and safe internet<a class="headerlink" href="#for-identity-systems-and-safe-internet" title="Permalink to this heading">#</a></h3>
+<p><img alt="loos of identity" src="_images/laws-identity.png" />
+In 2005, Microsoft’s Chief Identity Architect, Kim Cameron wrote an influential paper called <a class="reference external" href="https://www.identityblog.com/stories/2005/05/13/TheLawsOfIdentity.pdf">The Laws of Identity</a> (PDF). Kim had been talking about and formulating these laws in 2004 and throughout 2005. It’s no coincidence that Internet Identity Workshop got started in 2005. Many people were talking about user-centric identity and developing ideas about how we might be able to create an identity layer for the Internet. Fifteen years later, we’re still at it, but getting closer and closer all the time. (c)<a class="reference external" href="https://www.windley.com/archives/2019/01/the_laws_of_identity.shtml">laws of identity www.windley.com</a> is iconic paper that explain</p>
+</section>
 <section id="for-data-unlocking-and-ownership">
 <h3>For Data unlocking and Ownership<a class="headerlink" href="#for-data-unlocking-and-ownership" title="Permalink to this heading">#</a></h3>
+<div class="container16x9"><iframe src="https://www.youtube.com/embed/_2VRD9skrlc" class="responsive-iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </section>
 </section>
 <section id="affinidi-sdk">
 <h2>Affinidi SDK<a class="headerlink" href="#affinidi-sdk" title="Permalink to this heading">#</a></h2>
-<p><img alt="" src="../Affinidisdk.drawio.png" />
-<a class="reference external" href="https://github.com/affinidi/affinidi-core-sdk">Affinidi SDK repo</a></p>
-<p>we build a bridges
-<img alt="" src="Affinidi%20sdk%20bridge%202022-10-03%2003.14.01.excalidraw.png" /></p>
+<p>Affinidi SDK offer multiple capabilities and features for self sovereign identity management
+<img alt="" src="_images/Affinidisdk.drawio.png" />
+Code could be found in a repo <a class="reference external" href="https://github.com/affinidi/affinidi-core-sdk">Affinidi SDK repo</a></p>
+<p>we build a bridges from web2 to web3
+<img alt="" src="_images/sdk-bridge.png" />
+Lets try to connect all dots together</p>
+<div class="container16x9"><iframe src="https://www.youtube.com/embed/owbkzvLhblk" class="responsive-iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </section>
+<section id="what-about-web-5">
+<h2>What about Web 5 ?<a class="headerlink" href="#what-about-web-5" title="Permalink to this heading">#</a></h2>
+<div class="container16x9"><iframe src="https://www.youtube.com/embed/WGrmyyewLFY" class="responsive-iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -453,12 +473,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-ssi">Why SSI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-ssi-and-web5">Why SSI and web5</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ssi-principles">SSI Principles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-identity-systems-and-safe-internet">For identity systems and safe internet</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-data-unlocking-and-ownership">For Data unlocking and Ownership</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affinidi-sdk">Affinidi SDK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-web-5">What about Web 5 ?</a></li>
 </ul>
   </nav></div>
 
