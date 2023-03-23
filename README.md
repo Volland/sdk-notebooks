@@ -1,3 +1,5 @@
+## Book 
+This repo available as online book hosted at https://volland.github.io/sdk-notebooks/
 ## SDK notebooks 
 It is all about [Affinidi SDK](https://github.com/affinityproject/affinidi-core-sdk)
 Majority of this notebooks and presentation is just a material for my youtube videos 
