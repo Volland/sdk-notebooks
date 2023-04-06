@@ -1,20 +1,24 @@
 {
-  id: 'did:web:volland.github.io:sdk-notebooks:identity',
-  '@context': 'https://w3id.org/security/v2',
-  publicKey: [
+  "@context": "https://w3id.org/security/v2",
+  "publicKey": [
     {
-      id: 'did:web:volland.github.io:sdk-notebooks:identity#primary',
-      usage: 'signing',
-      type: 'Secp256k1VerificationKey2018',
-      publicKeyHex: '036bee92529f50a3700d85f483d43cba7177503039fc5950ef2f26ba2c5d5b10e1'
+      "id": "did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary",
+      "usage": "signing",
+      "type": "Secp256k1VerificationKey2018",
+      "publicKeyHex": "022ca63fffbd8b6dd7e54fa88b76d5245700ac81657fd59a03b73e4325ba1e19ba"
     },
     {
-      id: 'did:web:volland.github.io:sdk-notebooks:identity#recovery',
-      usage: 'recovery',
-      type: 'Secp256k1VerificationKey2018',
-      publicKeyHex: '03d0ecb8cc982c82c20e858cfd79a21e61603a98b13860df6a579b983959bd0e6e'
+      "id": "did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#recovery",
+      "usage": "recovery",
+      "type": "Secp256k1VerificationKey2018",
+      "publicKeyHex": "0390d67bfbfc80d00edc7080a4c91f1c844208fabd03e158a5910f5d1601e69eb5"
     }
   ],
-  authentication: [ 'did:web:volland.github.io:sdk-notebooks:identity#primary' ],
-  assertionMethod: [ 'did:web:volland.github.io:sdk-notebooks:identity#primary' ]
+  "authentication": [
+    "did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary"
+  ],
+  "assertionMethod": [
+    "did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary"
+  ],
+  "id": "did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q"
 }
