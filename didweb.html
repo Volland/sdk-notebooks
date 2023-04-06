@@ -493,7 +493,7 @@ It is multiple pros amd cons for this method byt what i could say for sure it is
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;424046e7d5c687a274b61664bd30f557a43cfbb8f2c13535dea0312ea387db6f&#39;</span><span class="w"> </span>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;your key&gt;&#39;</span><span class="w"> </span>
 </pre></div>
 </div>
 </div>
@@ -501,7 +501,7 @@ It is multiple pros amd cons for this method byt what i could say for sure it is
 <p>We should define in advance where we want to host our did web. Host name by default will expect that did is hosted on wellknown location
 did:web:volland.github.io: -&gt; <a class="reference external" href="https://volland.github.io/.well-known/did.json">https://volland.github.io/.well-known/did.json</a>
 if you have custom path it should be specified in a way
-did:web:volland.github.io:sdk-notebooks -&gt; <a class="reference external" href="https://volland.github.io/sdk-notebooks/identity/did.json">https://volland.github.io/sdk-notebooks/identity/did.json</a></p>
+did:web:volland.github.io:sdk-notebooks -&gt; <a class="reference external" href="https://volland.github.io/sdk-notebooks/did.json">https://volland.github.io/sdk-notebooks/did.json</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
@@ -523,24 +523,24 @@ did:web:volland.github.io:sdk-notebooks -&gt; <a class="reference external" href
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
-  id: &#39;did:web:volland.github.io:sdk-notebooks:identity&#39;,
+  id: &#39;did:web:volland.github.io:sdk-notebooks&#39;,
   &#39;@context&#39;: &#39;https://w3id.org/security/v2&#39;,
   publicKey: [
     {
-      id: &#39;did:web:volland.github.io:sdk-notebooks:identity#primary&#39;,
+      id: &#39;did:web:volland.github.io:sdk-notebooks#primary&#39;,
       usage: &#39;signing&#39;,
       type: &#39;Secp256k1VerificationKey2018&#39;,
-      publicKeyHex: &#39;036bee92529f50a3700d85f483d43cba7177503039fc5950ef2f26ba2c5d5b10e1&#39;
+      publicKeyHex: &#39;03b70a6116e9aae6666865c7a760fffc797e9ce6d91e57ae5f2c9ca4bc8e9a4d34&#39;
     },
     {
-      id: &#39;did:web:volland.github.io:sdk-notebooks:identity#recovery&#39;,
+      id: &#39;did:web:volland.github.io:sdk-notebooks#recovery&#39;,
       usage: &#39;recovery&#39;,
       type: &#39;Secp256k1VerificationKey2018&#39;,
-      publicKeyHex: &#39;03d0ecb8cc982c82c20e858cfd79a21e61603a98b13860df6a579b983959bd0e6e&#39;
+      publicKeyHex: &#39;029cd4cd2ff294a94fd194767e4a9c16d79a25ad80f10de8eb531cd7636fbd3f66&#39;
     }
   ],
-  authentication: [ &#39;did:web:volland.github.io:sdk-notebooks:identity#primary&#39; ],
-  assertionMethod: [ &#39;did:web:volland.github.io:sdk-notebooks:identity#primary&#39; ]
+  authentication: [ &#39;did:web:volland.github.io:sdk-notebooks#primary&#39; ],
+  assertionMethod: [ &#39;did:web:volland.github.io:sdk-notebooks#primary&#39; ]
 }
 </pre></div>
 </div>
@@ -555,7 +555,7 @@ We could backup in secured storage our encripted seed that will allow togenter w
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>f7dbbf3179eb95761c356a08e519fe2414b25bffbf6af266cfdb06f301f25f78e8ec5320a51be43123451e70d7099dcb47a99f37600c4e0ac6b30ac2641ce5ae51f6f07e6c45fce3c9cb5a86834a245632712a6b122c863ebfd801dc28cfe5a68a161db90cae9e0f3ac22f2117a22f4a6cc46ca266eb3ed13fb6fe8de0596a2edf5d49f358b95d3c2a0ab9ce49b078f76b85df2ec720a1cb09562d07f595b729e51a5fc92d17e66454d007abef95fe549a5d8849bdf5e0e209ff1ce38e376d9d98fea055cc89b95412ebdd025299f348
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>e2447a8368cc97a55be2d6f5e53da5f4714a0252dfc4b0999dc75dc384a1c2580e4a6abdc86d104403d547c5de823737511d6671399f1c7edff3fd00da1fd6581305a25e639f1d1a938e2dce89872c07b7ee507616385d5ed1862865e4edabfdc2a5b9ad1357474cb2afed573972b66151750c76e6a336d2e4190d1a27ecbf8648325f420337ec0c5a2b7d9d5c8b69ce88a5a5d8ad098f0b833a661ddc6ad5baf3b39f2eef9e9cfa7968447954ce5175b2314b88d5dbdaa3fd01ef4b4a5bdc64
 </pre></div>
 </div>
 </div>
@@ -608,13 +608,13 @@ We could backup in secured storage our encripted seed that will allow togenter w
     &quot;https://www.w3.org/2018/credentials/v1&quot;,
     &quot;https://schema.affinidi.com/ContentLikeV1-0.jsonld&quot;
   ],
-  &quot;id&quot;: &quot;claimId:d3757ebyui&quot;,
+  &quot;id&quot;: &quot;claimId:uv2kchuqy6&quot;,
   &quot;type&quot;: [
     &quot;VerifiableCredential&quot;,
     &quot;ContentLike&quot;
   ],
   &quot;holder&quot;: {
-    &quot;id&quot;: &quot;did:web:volland.github.io:sdk-notebooks:identity&quot;
+    &quot;id&quot;: &quot;did:web:volland.github.io:sdk-notebooks&quot;
   },
   &quot;credentialSubject&quot;: {
     &quot;data&quot;: {
@@ -623,7 +623,7 @@ We could backup in secured storage our encripted seed that will allow togenter w
         &quot;ContentLike&quot;
       ],
       &quot;url&quot;: &quot;https://www.youtube.com/watch?v=owbkzvLhblk&quot;,
-      &quot;date&quot;: &quot;2023-04-06T14:58:43.401Z&quot;,
+      &quot;date&quot;: &quot;2023-04-06T15:05:58.830Z&quot;,
       &quot;like&quot;: true,
       &quot;score&quot;: 10
     }
@@ -632,15 +632,15 @@ We could backup in secured storage our encripted seed that will allow togenter w
     &quot;id&quot;: &quot;https://schema.affinidi.com/ContentLikeV1-0.json&quot;,
     &quot;type&quot;: &quot;JsonSchemaValidator2018&quot;
   },
-  &quot;issuanceDate&quot;: &quot;2023-04-06T14:58:43.401Z&quot;,
+  &quot;issuanceDate&quot;: &quot;2023-04-06T15:05:58.830Z&quot;,
   &quot;expirationDate&quot;: &quot;2065-09-10T00:00:00.000Z&quot;,
-  &quot;issuer&quot;: &quot;did:web:volland.github.io:sdk-notebooks:identity&quot;,
+  &quot;issuer&quot;: &quot;did:web:volland.github.io:sdk-notebooks&quot;,
   &quot;proof&quot;: {
     &quot;type&quot;: &quot;EcdsaSecp256k1Signature2019&quot;,
-    &quot;created&quot;: &quot;2023-04-06T14:58:43Z&quot;,
-    &quot;verificationMethod&quot;: &quot;did:web:volland.github.io:sdk-notebooks:identity#primary&quot;,
+    &quot;created&quot;: &quot;2023-04-06T15:05:58Z&quot;,
+    &quot;verificationMethod&quot;: &quot;did:web:volland.github.io:sdk-notebooks#primary&quot;,
     &quot;proofPurpose&quot;: &quot;assertionMethod&quot;,
-    &quot;jws&quot;: &quot;eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..UcfjuE0Nq93aSNuQr7aeRp0BpnObo-NT-heDJQyCWFsBj7pNPAQzt4_U4Z5OAkEKLI4WEQNAqd9n9EVYvsqm4A&quot;
+    &quot;jws&quot;: &quot;eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..paG9PLEkUKiNeCtXpuOUylUWmnN5AAIxlo3iHrn8kIt1dp_mCcYV-gc4q4DVh2w1PPUF-g4ANMq1-zsD4bw_ag&quot;
   }
 }
 </pre></div>
