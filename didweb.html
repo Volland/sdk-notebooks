@@ -1,0 +1,762 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>DIDs &#8212; Self sovereign identity with Affinidi SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'didweb';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Self sovereign identity with Affinidi SDK</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to Self Sovereign Identity with Affinidi SDK
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="demo-sdk-create-wallet.html">Create Affinidi Wallet Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-revocable-vc.html">All about VC &amp; Revocable VCs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="request-for-offer.html">Howto offer VC to Holder</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="share-vp.html">Howto Share VC with Verifier</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="pex-vp.html">Presentation Exchange</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="credential-storage.html">Affinidi Vault - Credential Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-managment.html">Affinidi Vault - Custodial Wallet</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Volland/sdk-notebooks/issues/new?title=Issue%20on%20page%20%2Fdidweb.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/didweb.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DIDs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">DIDs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#did-document-and-did-identifier">DID Document and DID Identifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#did-actions">DID Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#did-method">DID method</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#did-web">DID Web</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-create-wallet">Lets create Wallet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-host-a-did-doc">Lets Host a did doc</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-issue-a-vc">Lets Issue a VC</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dids">
+<h1>DIDs<a class="headerlink" href="#dids" title="Permalink to this heading">#</a></h1>
+<p>We talk a lot about DIDs in a past videos. DID is a core of SSI and create cryptographic verifieble, decentralised, resolvable identifier.
+Decentralized Identifier (DID) is a unique, persistent, and cryptographically verifiable identifier that allows individuals, organizations, or devices to establish and manage their digital identities independently. DIDs are used in decentralized identity systems, enabling users to have control over their data and interact securely without relying on a centralized authority.</p>
+<section id="did-document-and-did-identifier">
+<h2>DID Document and DID Identifier<a class="headerlink" href="#did-document-and-did-identifier" title="Permalink to this heading">#</a></h2>
+<p>A DID (Decentralized Identifier) document is a structured, machine-readable JSON or JSON-LD document that contains essential information associated with a specific DID. It serves as a “public profile” for a decentralized identity, providing the necessary details for verifying signatures, encrypting/decrypting messages, and interacting with the identity’s associated services.</p>
+<p>The DID document typically includes:</p>
+<ul class="simple">
+<li><p>The DID itself: A unique identifier that represents the decentralized identity.</p></li>
+<li><p>Public keys: One or more public keys associated with the DID, used for cryptographic operations such as verifying signatures and encrypting messages.</p></li>
+<li><p>Authentication methods: Mechanisms to prove control of the DID, which typically involve the use of public keys.</p></li>
+<li><p>Service endpoints: URLs or other identifiers of services related to the DID, such as profile information, communication channels, or data repositories.</p></li>
+<li><p>Other metadata: Additional information related to the DID, such as timestamps, controller information, or specific DID method details.</p></li>
+</ul>
+<p>The DID document’s information allows other parties to trust and interact securely with the associated DID without relying on a centralized authority. DID documents are created, updated, and deactivated according to the rules and processes defined by the DID method associated with the DID. They are usually stored on distributed ledgers, blockchains, or other decentralized networks, making them globally resolvable and cryptographically verifiable.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://w3id.org/security/v2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;publicKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;signing&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Secp256k1VerificationKey2018&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;publicKeyHex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;022ca63fffbd8b6dd7e54fa88b76d5245700ac81657fd59a03b73e4325ba1e19ba&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#recovery&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;recovery&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Secp256k1VerificationKey2018&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;publicKeyHex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0390d67bfbfc80d00edc7080a4c91f1c844208fabd03e158a5910f5d1601e69eb5&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;authentication&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;assertionMethod&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q#primary&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>DID identifier</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">did</span><span class="p">:</span><span class="n">elem</span><span class="p">:</span><span class="n">EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q</span><span class="p">;</span><span class="n">elem</span><span class="p">:</span><span class="n">initial</span><span class="o">-</span><span class="n">state</span><span class="o">=</span><span class="n">eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1tTmhOak5tWm1aaVpEaGlObVJrTjJVMU5HWmhPRGhpTnpaa05USTBOVGN3TUdGak9ERTJOVGRtWkRVNVlUQXpZamN6WlRRek1qVmlZVEZsTVRsaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXprd1pEWTNZbVppWm1NNE1HUXdNR1ZrWXpjd09EQmhOR001TVdZeFl6ZzBOREl3T0daaFltUXdNMlV4TlRoaE5Ua3hNR1kxWkRFMk1ERmxOamxsWWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiTkJqblFlQVRuTXVJQUFrZTlEcFhDeXAzcmJzcnBsQWFRQ1A0ZEl2b3NfNVJZRnJTc2VDdnBSY3k1XzFOMUpObzB2WEpDdWVVVmZvaHJtNHROenM2cmcifQ</span>
+</pre></div>
+</div>
+<p>Parsed DIDs</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+  reference: &#39;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1tTmhOak5tWm1aaVpEaGlObVJrTjJVMU5HWmhPRGhpTnpaa05USTBOVGN3TUdGak9ERTJOVGRtWkRVNVlUQXpZamN6WlRRek1qVmlZVEZsTVRsaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXprd1pEWTNZbVppWm1NNE1HUXdNR1ZrWXpjd09EQmhOR001TVdZeFl6ZzBOREl3T0daaFltUXdNMlV4TlRoaE5Ua3hNR1kxWkRFMk1ERmxOamxsWWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiTkJqblFlQVRuTXVJQUFrZTlEcFhDeXAzcmJzcnBsQWFRQ1A0ZEl2b3NfNVJZRnJTc2VDdnBSY3k1XzFOMUpObzB2WEpDdWVVVmZvaHJtNHROenM2cmcifQ&#39;,
+  did: &#39;did:elem:EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q&#39;,
+  method: &#39;elem&#39;,
+  identifier: &#39;EiBa0KyUWgvMdkt_ywullSPac2kyOkRP5JRtHSeICQ1t6Q&#39;,
+  path: &#39;&#39;,
+  fragment: &#39;&#39;,
+  query: &#39;&#39;,
+  param: &#39;;elem:initial-state=eyJwcm90ZWN0ZWQiOiJleUp2Y0dWeVlYUnBiMjRpT2lKamNtVmhkR1VpTENKcmFXUWlPaUlqY0hKcGJXRnllU0lzSW1Gc1p5STZJa1ZUTWpVMlN5SjkiLCJwYXlsb2FkIjoiZXlKQVkyOXVkR1Y0ZENJNkltaDBkSEJ6T2k4dmR6TnBaQzV2Y21jdmMyVmpkWEpwZEhrdmRqSWlMQ0p3ZFdKc2FXTkxaWGtpT2x0N0ltbGtJam9pSTNCeWFXMWhjbmtpTENKMWMyRm5aU0k2SW5OcFoyNXBibWNpTENKMGVYQmxJam9pVTJWamNESTFObXN4Vm1WeWFXWnBZMkYwYVc5dVMyVjVNakF4T0NJc0luQjFZbXhwWTB0bGVVaGxlQ0k2SWpBeU1tTmhOak5tWm1aaVpEaGlObVJrTjJVMU5HWmhPRGhpTnpaa05USTBOVGN3TUdGak9ERTJOVGRtWkRVNVlUQXpZamN6WlRRek1qVmlZVEZsTVRsaVlTSjlMSHNpYVdRaU9pSWpjbVZqYjNabGNua2lMQ0oxYzJGblpTSTZJbkpsWTI5MlpYSjVJaXdpZEhsd1pTSTZJbE5sWTNBeU5UWnJNVlpsY21sbWFXTmhkR2x2Ymt0bGVUSXdNVGdpTENKd2RXSnNhV05MWlhsSVpYZ2lPaUl3TXprd1pEWTNZbVppWm1NNE1HUXdNR1ZrWXpjd09EQmhOR001TVdZeFl6ZzBOREl3T0daaFltUXdNMlV4TlRoaE5Ua3hNR1kxWkRFMk1ERmxOamxsWWpVaWZWMHNJbUYxZEdobGJuUnBZMkYwYVc5dUlqcGJJaU53Y21sdFlYSjVJbDBzSW1GemMyVnlkR2x2YmsxbGRHaHZaQ0k2V3lJamNISnBiV0Z5ZVNKZGZRIiwic2lnbmF0dXJlIjoiTkJqblFlQVRuTXVJQUFrZTlEcFhDeXAzcmJzcnBsQWFRQ1A0ZEl2b3NfNVJZRnJTc2VDdnBSY3k1XzFOMUpObzB2WEpDdWVVVmZvaHJtNHROenM2cmcifQ&#39;
+}
+</pre></div>
+</div>
+</section>
+<section id="did-actions">
+<h2>DID Actions<a class="headerlink" href="#did-actions" title="Permalink to this heading">#</a></h2>
+<p>It is four posible DID Actions.</p>
+<ul class="simple">
+<li><p><strong>Creating a DID</strong>: Generating a new identifier and associating it with a DID document, which contains public key material and service endpoints for the identity. For DIDs on blockchaine we could see term <strong>Anhoring</strong>. DID anchoring refers to the process of registering a Decentralized Identifier (DID) and its associated DID document on a distributed ledger or blockchain. Anchoring provides a secure, tamper-proof, and verifiable record of the DID’s existence and its associated information, making it an essential component of decentralized identity systems.</p></li>
+<li><p><strong>Resolving a DID</strong>: Retrieving the DID document associated with a specific DID, which is essential for verifying signatures, encrypting/decrypting messages, and interacting with the identity’s associated services.</p></li>
+<li><p><strong>Updating a DID</strong>: Modifying the DID document, such as adding or updating public keys, service endpoints, or other metadata. This action typically requires authorization from the DID controller.</p></li>
+<li><p><strong>Deactivating a DID</strong>: Marking a DID as inactive, rendering it unusable for future interactions. This action also usually requires authorization from the DID controller.
+DID resolution is a main and mandatory operations. Every did method has create procedure.</p></li>
+</ul>
+</section>
+<section id="did-method">
+<h2>DID method<a class="headerlink" href="#did-method" title="Permalink to this heading">#</a></h2>
+<p>Method is concrete implementation that defines the rules and processes for did actions on a particular distributed ledger, blockchain, or other decentralized network. DID methods provide a standardized way to manage DIDs and their associated DID documents, enabling interoperability between different decentralized identity systems.
+Each DID method is identified by a unique method name, which appears in the DID itself. For example, a DID with the method name “example” would look like “did:<strong>example</strong>:123456789abcdefghi”.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="did-web">
+<h1>DID Web<a class="headerlink" href="#did-web" title="Permalink to this heading">#</a></h1>
+<p>Affinidi sdk support <strong>did:web</strong> out of the box Specefication of methid could be found here <a class="reference external" href="https://w3c-ccg.github.io/did-method-web/">https://w3c-ccg.github.io/did-method-web/</a>. The idea behind - did document is published on well known address under a
+It is multiple pros amd cons for this method byt what i could say for sure it is widely adopted by community.</p>
+<p><strong>Pros</strong></p>
+<ul class="simple">
+<li><p>easy to scale</p></li>
+<li><p>ledger and third paty system free</p></li>
+<li><p>fast</p></li>
+<li><p>feet well for enterprice and organisation that own web domains</p></li>
+<li><p>close to Autononiomus identifiers (depends only on hosting with no third paty systems</p></li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul class="simple">
+<li><p>main security mechanism here based on idea that website domain and DNS record is a main security protection. So you prove ownership of your public web site. it is not always safe on my opinion</p></li>
+<li><p>domains could change an owner and be sold or reasigned</p></li>
+</ul>
+<section id="lets-create-wallet">
+<h2>Lets create Wallet<a class="headerlink" href="#lets-create-wallet" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createWallet</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@affinidi/wallet-node-sdk&#39;</span><span class="p">)</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">EventComponent</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@affinidi/wallet-core-sdk&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">walletFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">EventComponent</span><span class="p">.</span><span class="nx">AffinidiCore</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">accessApiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;424046e7d5c687a274b61664bd30f557a43cfbb8f2c13535dea0312ea387db6f&#39;</span><span class="w"> </span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We should define in advance where we want to host our did web. Host name by default will expect that did is hosted on wellknown location
+did:web:volland.github.io: -&gt; <a class="reference external" href="https://volland.github.io/.well-known/did.json">https://volland.github.io/.well-known/did.json</a>
+if you have custom path it should be specified in a way
+did:web:volland.github.io:sdk-notebooks -&gt; <a class="reference external" href="https://volland.github.io/sdk-notebooks/identity/did.json">https://volland.github.io/sdk-notebooks/identity/did.json</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;prod&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">accessApiKey</span><span class="o">:</span><span class="w"> </span><span class="kt">accessApiKey</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">webDomain</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;volland.github.io:sdk-notebooks&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">didMethod</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;web&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">wallet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">walletFactory</span><span class="p">.</span><span class="nx">createWallet</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;P@ssw0rd&#39;</span><span class="p">)</span>
+<span class="nx">wallet</span><span class="p">.</span><span class="nx">didDocument</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  id: &#39;did:web:volland.github.io:sdk-notebooks:identity&#39;,
+  &#39;@context&#39;: &#39;https://w3id.org/security/v2&#39;,
+  publicKey: [
+    {
+      id: &#39;did:web:volland.github.io:sdk-notebooks:identity#primary&#39;,
+      usage: &#39;signing&#39;,
+      type: &#39;Secp256k1VerificationKey2018&#39;,
+      publicKeyHex: &#39;036bee92529f50a3700d85f483d43cba7177503039fc5950ef2f26ba2c5d5b10e1&#39;
+    },
+    {
+      id: &#39;did:web:volland.github.io:sdk-notebooks:identity#recovery&#39;,
+      usage: &#39;recovery&#39;,
+      type: &#39;Secp256k1VerificationKey2018&#39;,
+      publicKeyHex: &#39;03d0ecb8cc982c82c20e858cfd79a21e61603a98b13860df6a579b983959bd0e6e&#39;
+    }
+  ],
+  authentication: [ &#39;did:web:volland.github.io:sdk-notebooks:identity#primary&#39; ],
+  assertionMethod: [ &#39;did:web:volland.github.io:sdk-notebooks:identity#primary&#39; ]
+}
+</pre></div>
+</div>
+</div>
+</div>
+<p>as you see wallet has property <code class="docutils literal notranslate"><span class="pre">didDocument</span></code> that give us did document that we should host
+We could backup in secured storage our encripted seed that will allow togenter with password unlock a wallet and sign a credentials with this did.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="nx">wallet</span><span class="p">.</span><span class="nx">encryptedSeed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>f7dbbf3179eb95761c356a08e519fe2414b25bffbf6af266cfdb06f301f25f78e8ec5320a51be43123451e70d7099dcb47a99f37600c4e0ac6b30ac2641ce5ae51f6f07e6c45fce3c9cb5a86834a245632712a6b122c863ebfd801dc28cfe5a68a161db90cae9e0f3ac22f2117a22f4a6cc46ca266eb3ed13fb6fe8de0596a2edf5d49f358b95d3c2a0ab9ce49b078f76b85df2ec720a1cb09562d07f595b729e51a5fc92d17e66454d007abef95fe549a5d8849bdf5e0e209ff1ce38e376d9d98fea055cc89b95412ebdd025299f348
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lets-host-a-did-doc">
+<h2>Lets Host a did doc<a class="headerlink" href="#lets-host-a-did-doc" title="Permalink to this heading">#</a></h2>
+<p>Just upload it to your domain. In our case i made a book publishing.</p>
+</section>
+<section id="lets-issue-a-vc">
+<h2>Lets Issue a VC<a class="headerlink" href="#lets-issue-a-vc" title="Permalink to this heading">#</a></h2>
+<p>You could do all operations with this did and wallet as with any other method</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">jsonSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://schema.affinidi.com/ContentLikeV1-0.json&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">jsonContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://schema.affinidi.com/ContentLikeV1-0.jsonld&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`claimId:</span><span class="si">${</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">36</span><span class="p">).</span><span class="nx">substring</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">unsignedVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s1">&#39;@context&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;https://www.w3.org/2018/credentials/v1&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">jsonContext</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">id</span><span class="p">,</span>
+<span class="w">    </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;VerifiableCredential&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ContentLike&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">holder</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">wallet.did</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">credentialSubject</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s1">&#39;@type&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;VerifiableCredential&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ContentLike&#39;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://www.youtube.com/watch?v=owbkzvLhblk&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">like</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">score</span><span class="o">:</span><span class="w"> </span><span class="kt">10</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">credentialSchema</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w">  </span><span class="kt">jsonSchema</span><span class="p">,</span>
+<span class="w">      </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;JsonSchemaValidator2018&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">issuanceDate</span><span class="o">:</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">(),</span>
+<span class="w">    </span><span class="nx">expirationDate</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2065-09-10T00:00:00.000Z&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">signedVC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">wallet</span><span class="p">.</span><span class="nx">signUnsignedCredential</span><span class="p">(</span><span class="nx">unsignedVC</span><span class="p">)</span>
+<span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">signedVC</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  &quot;@context&quot;: [
+    &quot;https://www.w3.org/2018/credentials/v1&quot;,
+    &quot;https://schema.affinidi.com/ContentLikeV1-0.jsonld&quot;
+  ],
+  &quot;id&quot;: &quot;claimId:d3757ebyui&quot;,
+  &quot;type&quot;: [
+    &quot;VerifiableCredential&quot;,
+    &quot;ContentLike&quot;
+  ],
+  &quot;holder&quot;: {
+    &quot;id&quot;: &quot;did:web:volland.github.io:sdk-notebooks:identity&quot;
+  },
+  &quot;credentialSubject&quot;: {
+    &quot;data&quot;: {
+      &quot;@type&quot;: [
+        &quot;VerifiableCredential&quot;,
+        &quot;ContentLike&quot;
+      ],
+      &quot;url&quot;: &quot;https://www.youtube.com/watch?v=owbkzvLhblk&quot;,
+      &quot;date&quot;: &quot;2023-04-06T14:58:43.401Z&quot;,
+      &quot;like&quot;: true,
+      &quot;score&quot;: 10
+    }
+  },
+  &quot;credentialSchema&quot;: {
+    &quot;id&quot;: &quot;https://schema.affinidi.com/ContentLikeV1-0.json&quot;,
+    &quot;type&quot;: &quot;JsonSchemaValidator2018&quot;
+  },
+  &quot;issuanceDate&quot;: &quot;2023-04-06T14:58:43.401Z&quot;,
+  &quot;expirationDate&quot;: &quot;2065-09-10T00:00:00.000Z&quot;,
+  &quot;issuer&quot;: &quot;did:web:volland.github.io:sdk-notebooks:identity&quot;,
+  &quot;proof&quot;: {
+    &quot;type&quot;: &quot;EcdsaSecp256k1Signature2019&quot;,
+    &quot;created&quot;: &quot;2023-04-06T14:58:43Z&quot;,
+    &quot;verificationMethod&quot;: &quot;did:web:volland.github.io:sdk-notebooks:identity#primary&quot;,
+    &quot;proofPurpose&quot;: &quot;assertionMethod&quot;,
+    &quot;jws&quot;: &quot;eyJhbGciOiJFUzI1NksiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..UcfjuE0Nq93aSNuQr7aeRp0BpnObo-NT-heDJQyCWFsBj7pNPAQzt4_U4Z5OAkEKLI4WEQNAqd9n9EVYvsqm4A&quot;
+  }
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "tslab"
+        },
+        kernelOptions: {
+            name: "tslab",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'tslab'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">DIDs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#did-document-and-did-identifier">DID Document and DID Identifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#did-actions">DID Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#did-method">DID method</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#did-web">DID Web</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-create-wallet">Lets create Wallet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-host-a-did-doc">Lets Host a did doc</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lets-issue-a-vc">Lets Issue a VC</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Volodymyr Pavlyshyn
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
