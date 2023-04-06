@@ -11,4 +11,5 @@ chapters:
 - file: pex-vp.ipynb
 - file: credential-storage.ipynb
 - file: user-managment.ipynb
+- file: didweb.ipyb
 

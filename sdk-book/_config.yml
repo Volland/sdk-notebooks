@@ -16,7 +16,9 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
-
+sphinx:
+  config:
+    html_extra_path: ['identity']
 parse:
   myst_substitutions:
     # The video_embed substitution below is essentially a macro to avoid
